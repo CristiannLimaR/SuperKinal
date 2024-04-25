@@ -230,24 +230,25 @@ DELIMITER ;
 
 -- --------------------------------------TICKET SOPORTE -------------------------------------------------------
 DELIMITER $$
-create procedure sp_AgregarTicketSoporte(in des varchar(250), in cliId int, in facId int)
+create procedure sp_AgregarTicketSoporte(in des varchar(250), in est varchar(30), in cliId int, in facId int)
 begin
 	insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		(des,'Recien Creado',cliId,facId);
+		(des,est,cliId,facId);
 end $$
 DELIMITER ;
  
 DELIMITER $$
 create procedure sp_ListarTicketSoporte()
 begin
-	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus, 
-			concat('Id: ', C.clienteId,'| ',C.nombre, ' ',C.apellido)  AS 'Cliente',
-            TS.facturaId from TicketSoporte TS
-    join Clientes C on TS.clienteId = C.clienteId;
+	select 
+		TicketSoporte.ticketSoporteId,
+        TicketSoporte.descripcionTicket,
+        TicketSoporte.estatus,
+        TicketSoporte.clienteId,
+        TicketSoporte.facturaId
+			from TicketSoporte;
 end $$
 DELIMITER ;
-
-
  
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(in tikId int)
