@@ -59,7 +59,7 @@
          </children>
       </GridPane>
       <Button fx:id="btnRegresar" alignment="CENTER" layoutX="976.0" layoutY="675.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="36.0" prefWidth="180.0" style="-fx-background-color: #F2133C; -fx-background-radius: 20;" text="Regresar" />
-      <TextField fx:id="tfBuscar" layoutX="849.0" layoutY="121.0" prefHeight="26.0" prefWidth="230.0" />
+      <TextField fx:id="tfBuscar" layoutX="849.0" layoutY="121.0" prefHeight="26.0" prefWidth="230.0" promptText="Ingrese el Id del Cliente a Buscar" />
       <Button fx:id="btnBuscar" layoutX="1088.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="30.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">

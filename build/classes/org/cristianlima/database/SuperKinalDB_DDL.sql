@@ -113,12 +113,13 @@ create table Promociones(
 );
 
 create table Compras(
-	compraId int not null,
+	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10,2),
     primary key PK_compraId (compraId)
-
 );
+
+
 
 create table DetalleCompra(
 	detalleCompraId int not null auto_increment,
