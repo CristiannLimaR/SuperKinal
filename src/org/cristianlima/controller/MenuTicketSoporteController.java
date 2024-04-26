@@ -44,7 +44,7 @@ public class MenuTicketSoporteController implements Initializable {
     ComboBox cmbEstatus, cmbClientes;
 
     @FXML
-    Button btnRegresar, btnGuardar;
+    Button btnRegresar, btnGuardar, btnVaciar;
     
     @FXML
     TextField tfTicketId;
@@ -64,17 +64,29 @@ public class MenuTicketSoporteController implements Initializable {
             if(tfTicketId.getText().isEmpty()){
                 agregarTicket();
                 cargarDatos();
+            }else{
+                editarTicket();
+                cargarDatos();
             }
+        }else if(event.getSource() == btnVaciar){
+            vaciarCampos();
         }
     }
 
+    
+    public void vaciarCampos(){
+        tfTicketId.clear();
+        taDescripcion.clear();
+        cmbEstatus.getSelectionModel().clearSelection();
+        cmbClientes.getSelectionModel().clearSelection();
+    }
     //Cargar datps a el tableView
     public void cargarDatos() {
         tblTickets.setItems(listarTickets());
         colTicketId.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("ticketSoporteId"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("descripcionTicket"));
         colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("estatus"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("cliente"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Cliente"));
         colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("facturaId"));
 
         tblTickets.getSortOrder().add(colTicketId);
@@ -167,15 +179,15 @@ public class MenuTicketSoporteController implements Initializable {
     public void agregarTicket() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "sp_agregarTicketSoporte(?,?,?)";
+            String sql = "call sp_agregarTicketSoporte(?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, taDescripcion.getText());
-            statement.setInt(2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem())).getClienteId();
+            statement.setInt (2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(3, 1);
             statement.execute();
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } finally{
             try {
                 if (resultSet != null) {
@@ -201,13 +213,26 @@ public class MenuTicketSoporteController implements Initializable {
             statement.setInt(1, Integer.parseInt(tfTicketId.getText()));
             statement.setString(2, taDescripcion.getText());
             statement.setString(3,cmbEstatus.getSelectionModel().getSelectedItem().toString());
-            statement.setInt(4, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem())).getClienteId();
+            statement.setInt (4, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
+            statement.setInt(5,1);
             statement.execute();
             
         }catch(SQLException e){
-            
+            e.printStackTrace();
         }finally{
-            
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

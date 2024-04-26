@@ -52,7 +52,7 @@ DELIMITER $$
 create procedure sp_agregarCargo(nomCar varchar(30), desCar varchar(100)) 
 	begin
 		insert into Cargos(nombreCargo, descripcionCargo) values
-        (nomC,desCar);
+        (nomCar,desCar);
 	end$$
 DELIMITER ;
 
@@ -230,25 +230,27 @@ DELIMITER ;
 
 -- --------------------------------------TICKET SOPORTE -------------------------------------------------------
 DELIMITER $$
-create procedure sp_AgregarTicketSoporte(in des varchar(250), in est varchar(30), in cliId int, in facId int)
+create procedure sp_agregarTicketSoporte(in des varchar(250), in cliId int, in facId int)
 begin
 	insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		(des,est,cliId,facId);
+		(des,'Recien Creado',cliId,facId);
 end $$
 DELIMITER ;
+
+
+
  
 DELIMITER $$
 create procedure sp_ListarTicketSoporte()
 begin
-	select 
-		TicketSoporte.ticketSoporteId,
-        TicketSoporte.descripcionTicket,
-        TicketSoporte.estatus,
-        TicketSoporte.clienteId,
-        TicketSoporte.facturaId
-			from TicketSoporte;
+	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus, 
+			concat('Id: ', C.clienteId,'| ',C.nombre, ' ',C.apellido)  AS 'Cliente',
+            TS.facturaId from TicketSoporte TS
+    join Clientes C on TS.clienteId = C.clienteId;
 end $$
 DELIMITER ;
+
+
  
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(in tikId int)
@@ -263,8 +265,8 @@ DELIMITER $$
 create procedure sp_BuscarTicketSoporte(in tikiId int)
 begin 
 	select
-		TicketSoporte.ticketSoporteId,
-        TicketSoporte.descripcionTicket,
+		ticketSoporteId,
+        descripcionTicket,
         TicketSoporte.estatus,
         TicketSoporte.clienteId,
         TicketSoporte.facturaId
@@ -286,14 +288,15 @@ begin
 end $$
 DELIMITER ;
 
-
+call sp_listarTicketSoporte();
+call sp_EditarTicketSoporte(1,'dfdfdsfsdf','Finalizado',1,1);
 -- --------------------------------- Empleados --------------------------------------
  
 DELIMITER $$
-create procedure sp_agregarEmpleados(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encarId int)
+create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int)
 	begin
-		insert into Empleados (nomEmp, apeEmp, sue, hoEn, hoSa, carid, encarId) values
-			(nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId);
+		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId) values 
+			(nomEmp, apeEmp, sue, hoEn, hoSa, carid);
     end $$
 DELIMITER ;
  
@@ -351,12 +354,14 @@ DELIMITER ;
 -- ----------------- FACTURAS -------------------------------------
  
 DELIMITER $$
-create procedure sp_agregarFacturas(in fe date, in ho time, in tot decimal(10, 2), in cliId int, in empId int)
+create procedure sp_agregarFactura( in cliId int, in empId int)
 	begin
-		insert into Facturas (fe, ho, tot, cliId, empId) values
-			(fecha, hora, total, clienteId, empleadoId);
+		insert into Facturas (fecha, hora, clienteId, empleadoId) values 
+			(DATE(NOW()),TIME(NOW()), cliId, empId);
     end $$
 DELIMITER ;
+
+
  
  
 DELIMITER $$
@@ -590,3 +595,14 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
 			where detalleCompraId = detCId;
     end $$
 DELIMITER ;
+
+call sp_agregarCargo('Cajero','Atiende a los clientes en caja');
+call sp_agregarCargo('Encargado de Tienda', 'Se encarga de administrar una sucursal');
+call sp_listarCargos();
+call sp_buscarCargo(1);
+call sp_eliminarCargo(1);
+call sp_editarCargo(2,'Gerente de ventas', 'Se encarga de el area de ventas');
+call sp_agregarDistribuidor('Cerveceria Centro Americana','Guatemala','23433434','2345-5678','https://cerveceriacentroamericana.com/');
+call sp_listarDistribuidores();
+
+

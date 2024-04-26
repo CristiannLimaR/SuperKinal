@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,29 +18,30 @@
             <Image url="@../image/Menu%20Tickets.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfTicketId" layoutX="62.0" layoutY="184.0" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="173.0" promptText="Ticket Id" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <ComboBox fx:id="cmbEstatus" layoutX="62.0" layoutY="520.0" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <ComboBox fx:id="cmbFacturas" layoutX="691.0" layoutY="184.0" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <ComboBox fx:id="cmbClientes" layoutX="411.0" layoutY="184.0" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <TableView layoutX="453.0" layoutY="311.0" prefHeight="331.0" prefWidth="610.0">
+      <TextField fx:id="tfTicketId" layoutX="62.0" layoutY="184.0" prefHeight="40.0" prefWidth="173.0" promptText="Ticket Id" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <ComboBox fx:id="cmbEstatus" layoutX="62.0" layoutY="520.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <ComboBox fx:id="cmbFacturas" layoutX="691.0" layoutY="184.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <ComboBox fx:id="cmbClientes" layoutX="411.0" layoutY="184.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <TableView fx:id="tblTickets" layoutX="453.0" layoutY="311.0" onMouseClicked="#cargarDatosEditar" prefHeight="331.0" prefWidth="610.0">
         <columns>
-          <TableColumn text="TicketId" />
-          <TableColumn prefWidth="162.0" text="Descripcion" />
-            <TableColumn prefWidth="122.0" text="Estatus" />
-            <TableColumn prefWidth="122.0" text="Cliente" />
-            <TableColumn prefWidth="122.0" text="Factura" />
+          <TableColumn fx:id="colTicketId" text="TicketId" />
+          <TableColumn fx:id="colDescripcion" prefWidth="162.0" text="Descripcion" />
+            <TableColumn fx:id="colEstatus" prefWidth="122.0" text="Estatus" />
+            <TableColumn fx:id="colCliente" prefWidth="122.0" text="Cliente" />
+            <TableColumn fx:id="colFactura" prefWidth="122.0" text="Factura" />
         </columns>
       </TableView>
       <Button fx:id="btnRegresar" alignment="CENTER" layoutX="986.0" layoutY="685.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="36.0" prefWidth="180.0" style="-fx-background-color: #F2133C; -fx-background-radius: 20;" text="Regresar" />
-      <Button fx:id="btnEliminar" alignment="CENTER" layoutX="92.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Eliminar" textFill="WHITE">
+      <Button fx:id="btnGuardar" alignment="CENTER" layoutX="33.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Guardar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="tfDescripcion" alignment="TOP_LEFT" layoutX="62.0" layoutY="311.0" onAction="#handleButtonAction" prefHeight="133.0" prefWidth="328.0" style="-fx-background-radius: 20; -fx-border-radius: 20;">
+      <Button fx:id="btnVaciar" alignment="CENTER" layoutX="236.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Vaciar" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
-      </TextField>
+      </Button>
+      <TextArea fx:id="taDescripcion" layoutX="62.0" layoutY="317.0" prefHeight="133.0" prefWidth="328.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
    </children>
 </AnchorPane>

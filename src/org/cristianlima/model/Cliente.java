@@ -81,7 +81,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return  "Id:" + clienteId +  "| " + nombre + " " + apellido;
+        return  "Id: " + clienteId +  "| " + nombre + " " + apellido;
     }
     
     

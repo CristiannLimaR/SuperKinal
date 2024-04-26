@@ -143,3 +143,4 @@ create table DetalleFactura(
 		references Productos(productoId)
 );
 
+
