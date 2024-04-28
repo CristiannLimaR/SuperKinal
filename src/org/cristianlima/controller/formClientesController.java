@@ -67,18 +67,7 @@ public class formClientesController implements Initializable {
             statement.execute();
         } catch (SQLException e) {
             e.getMessage();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
     }
 
     public void editarCliente() {
@@ -113,7 +102,7 @@ public class formClientesController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnGuardar) {
             if (op == 1) {
-                if (!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")) {
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfDireccion.getText().equals("")) {
                     agregarCliente();
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
                     stage.menuClientesView();

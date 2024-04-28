@@ -182,7 +182,19 @@ public class MenuClientesController implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return cliente;
     }

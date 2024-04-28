@@ -39,6 +39,12 @@ public class SuperKinalAlert {
             alert.setHeaderText("Confirmación de registro");
             alert.setContentText("El registro de ha creado con éxito!!!!!");
             alert.showAndWait();
+        }else if(code == 402){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error al eliminar");
+            alert.setHeaderText("Error al eliminar");
+            alert.setContentText("No puedes eliminar o Editar este registro porque esta conectado a otra tabla ");
+            alert.showAndWait();
         }
     }
         

@@ -6,8 +6,6 @@
 package org.cristianlima.system;
 
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.HashSet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,10 +14,12 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import org.cristianlima.controller.MenuCargosController;
 import org.cristianlima.controller.formClientesController;
 import org.cristianlima.controller.MenuClientesController;
 import org.cristianlima.controller.MenuPrincipalController;
 import org.cristianlima.controller.MenuTicketSoporteController;
+import org.cristianlima.controller.formCargosController;
 
 /**
  *
@@ -92,6 +92,25 @@ public class Main extends Application {
             
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    
+    public void menuCargosView(){
+        try{
+            MenuCargosController menuCargosView = (MenuCargosController) switchScene("MenuCargosView.fxml",1200,750);
+            menuCargosView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void formCargoController(int op){
+        try{
+            formCargosController formCargosView = (formCargosController) switchScene("FormCargosView.fxml",500,500);
+            formCargosView.setOp(op);
+            formCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
