@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/Blue%20Modern%20Transport%20Login%20Page%20Wireframe%20Tablet%20UI%20Prototype%20(768%20x%201024%20px)%20(700%20x%20800%20px)%20(1).png" />
+            <Image url="@../image/FormClientesView.png" />
          </image></ImageView>
       <TextField fx:id="tfApellido" layoutX="79.0" layoutY="248.0" prefHeight="48.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
          <font>

@@ -26,7 +26,7 @@ import org.cristianlima.utils.SuperKinalAlert;
  *
  * @author cristian
  */
-public class formClientesController implements Initializable {
+public class FormClientesController implements Initializable {
 
     private static Connection conexion = null;
     private static PreparedStatement statement = null;

@@ -14,10 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.cristianlima.dao.Conexion;
-import org.cristianlima.dto.CategoriaProductoDTO;
-import org.cristianlima.model.CategoriaProducto;
+import org.cristianlima.dto.CargoDTO;
+import org.cristianlima.dto.ClienteDTO;
+import org.cristianlima.model.Cargo;
 import org.cristianlima.system.Main;
 import org.cristianlima.utils.SuperKinalAlert;
 
@@ -26,72 +28,76 @@ import org.cristianlima.utils.SuperKinalAlert;
  *
  * @author cristian
  */
-public class formCategoriasController implements Initializable {
-
+public class FormCargosController implements Initializable {
     private Main stage;
     private int op;
-
+    
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
-
+    
     @FXML
-    TextField tfId, tfCategoria, tfDescripcion;
-
+    TextField tfId, tfCargo,tfDescripcion;
+    
     @FXML
     Button btnSalir, btnGuardar;
-
+    
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(CategoriaProductoDTO.getCategoriaProductoDTO().getCategoria() != null){
-            cargarDatos(CategoriaProductoDTO.getCategoriaProductoDTO().getCategoria());
-        }
-    }
-
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnSalir) {
-            stage.menuCategoriaView();
-            CategoriaProductoDTO.getCategoriaProductoDTO().setCategoria(null);
-        } else if (event.getSource() == btnGuardar) {
-            if (op == 1) {
-                if (!tfCategoria.getText().isEmpty() && !tfDescripcion.getText().isEmpty()) {
-                    agregarCategoria();
-                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
-                    stage.menuCategoriaView();
-                } else {
-                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
-                    return;
-                }
-            } else if (op == 2) {
-                if (!tfCategoria.getText().isEmpty() && !tfDescripcion.getText().isEmpty()) {
-                    editarCategoria();
-                    CategoriaProductoDTO.getCategoriaProductoDTO().setCategoria(null);
-                    stage.menuCategoriaView();
-                }
-            } else {
-                SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+         if(CargoDTO.getCargoDTO().getCargo() != null){
+                cargarDatos(CargoDTO.getCargoDTO().getCargo());
             }
+    }    
+    
+    public void handleButtonAction(ActionEvent event){
+        if(event.getSource() == btnSalir){
+            stage.menuCargosView();
+            ClienteDTO.getClienteDTO().setCliente(null);
+        }else if(event.getSource() == btnGuardar){
+           if(op == 1){
+               if(!tfCargo.getText().isEmpty() && !tfDescripcion.getText().isEmpty() ){
+                   agregarCargo();
+                   SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                   stage.menuCargosView();
+               }else{
+                   SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                   return;
+               }
+           }else if(op == 2){
+               if(!tfCargo.getText().isEmpty() && !tfDescripcion.getText().isEmpty() ){
+                   if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK){
+                       editarCargo();
+                       CargoDTO.getCargoDTO().setCargo(null);
+                       stage.menuCargosView();
+                   }
+                   
+               }else {
+                   SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+               }
+           }
         }
     }
     
-    public void cargarDatos(CategoriaProducto categoria){
-        tfId.setText(Integer.toString(categoria.getCategoriaProductosId()));
-        tfCategoria.setText(categoria.getNombreCategoria());
-        tfDescripcion.setText(categoria.getDescripcionCategoria());
+    public void cargarDatos(Cargo cargo){
+        tfId.setText(Integer.toString(cargo.getCargoId()));
+        tfCargo.setText(cargo.getNombreCargo());
+        tfDescripcion.setText(cargo.getDescripcionCargo());
     }
-
-    public void agregarCategoria() {
-        try {
+    
+    public void agregarCargo(){
+        try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarCategoriaProductos(?,?)";
+            String sql = "call sp_agregarCargo(?,?)";
             statement = conexion.prepareStatement(sql);
-            statement.setString(1, tfCategoria.getText());
+            statement.setString(1, tfCargo.getText());
             statement.setString(2, tfDescripcion.getText());
             statement.execute();
-
-        } catch (SQLException e) {
+            
+        }catch(SQLException e){
             e.printStackTrace();
-        } finally {
+        }finally {
             try {
                 if (statement != null) {
                     statement.close();
@@ -104,20 +110,20 @@ public class formCategoriasController implements Initializable {
             }
         }
     }
-
-    public void editarCategoria() {
-        try {
+    
+    public void editarCargo(){
+        try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarCategoriaProductos(?,?,?)";
+            String sql = "call sp_editarCargo(?,?,?)";
             statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(tfId.getText()));
-            statement.setString(2, tfCategoria.getText());
+            statement.setInt(1,Integer.parseInt(tfId.getText()));
+            statement.setString(2, tfCargo.getText());
             statement.setString(3, tfDescripcion.getText());
             statement.execute();
-
-        } catch (SQLException e) {
+            
+        }catch(SQLException e){
             e.printStackTrace();
-        } finally {
+        }finally {
             try {
                 if (statement != null) {
                     statement.close();
@@ -148,5 +154,5 @@ public class formCategoriasController implements Initializable {
     }
     
     
-
+    
 }

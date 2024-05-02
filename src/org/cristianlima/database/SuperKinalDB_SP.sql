@@ -460,7 +460,7 @@ create procedure sp_editarPromociones(in promoId int, in prePro decimal(10, 2), 
 DELIMITER ;
 
 DELIMITER $$
-create procedure sp_listarCompra()
+create procedure sp_listarCompras()
 	begin
 		select * from Compras;
     end $$
