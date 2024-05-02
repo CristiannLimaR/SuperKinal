@@ -41,9 +41,9 @@ public class SuperKinalAlert {
             alert.showAndWait();
         }else if(code == 402){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error al eliminar");
-            alert.setHeaderText("Error al eliminar");
-            alert.setContentText("No puedes eliminar o Editar este registro porque esta conectado a otra tabla ");
+            alert.setTitle("Error al eliminar o editar");
+            alert.setHeaderText("Error al eliminar o editar");
+            alert.setContentText("No puedes eliminar o editar este registro porque esta conectado a otra tabla ");
             alert.showAndWait();
         }
     }

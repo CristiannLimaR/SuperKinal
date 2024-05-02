@@ -15,11 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import org.cristianlima.controller.MenuCargosController;
+import org.cristianlima.controller.MenuCategoriaProductosController;
 import org.cristianlima.controller.formClientesController;
 import org.cristianlima.controller.MenuClientesController;
 import org.cristianlima.controller.MenuPrincipalController;
 import org.cristianlima.controller.MenuTicketSoporteController;
 import org.cristianlima.controller.formCargosController;
+import org.cristianlima.controller.formCategoriasController;
 
 /**
  *
@@ -109,6 +111,25 @@ public class Main extends Application {
             formCargosController formCargosView = (formCargosController) switchScene("FormCargosView.fxml",500,500);
             formCargosView.setOp(op);
             formCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuCategoriaView(){
+        try{
+            MenuCategoriaProductosController menuCategoria = (MenuCategoriaProductosController) switchScene("MenuCategoriaProductosView.fxml",1200,750);
+            menuCategoria.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void formCategoriaController(int op){
+        try{
+            formCategoriasController formCategoriaView = (formCategoriasController) switchScene("FormCategoriasView.fxml",500,500);
+            formCategoriaView.setOp(op);
+            formCategoriaView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
