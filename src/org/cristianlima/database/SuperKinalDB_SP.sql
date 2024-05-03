@@ -302,7 +302,11 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarEmpleados()
 	begin
-		select * from Empleados;
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        C.nombreCargo,
+        E2.nombreEmpleado from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$
 DELIMITER ;
  
@@ -595,4 +599,5 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
 			where detalleCompraId = detCId;
     end $$
 DELIMITER ;
+
 
