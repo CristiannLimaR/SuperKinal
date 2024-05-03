@@ -144,4 +144,6 @@ create table DetalleFactura(
 		references Productos(productoId)
 );
 
+insert into Compras(fechaCompra, totalCompra) values
+('2006-05-12',100);
 

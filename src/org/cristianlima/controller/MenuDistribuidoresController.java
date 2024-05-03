@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */zzbfsevq
+ */
 package org.cristianlima.controller;
 
 import java.net.URL;
@@ -23,8 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.cristianlima.dao.Conexion;
-import org.cristianlima.dto.ClienteDTO;
-import org.cristianlima.model.Cliente;
+import org.cristianlima.dto.DistribuidorDTO;
 import org.cristianlima.model.Distribuidor;
 import org.cristianlima.system.Main;
 
@@ -35,6 +34,8 @@ import org.cristianlima.system.Main;
  */
 public class MenuDistribuidoresController implements Initializable {
     private Main stage;
+    
+    
     
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
@@ -55,7 +56,7 @@ public class MenuDistribuidoresController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        cargarLista();
     }    
     
     @FXML
@@ -63,31 +64,30 @@ public class MenuDistribuidoresController implements Initializable {
         if (event.getSource() == btnRegresar) {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnAgregar) {
-            stage.formClienteController(1);
+           stage.formDistribuidorControllerView(1);
         } else if (event.getSource() == btnListar){
             cargarLista();
         }else if (event.getSource() == btnEditar) {
-            ClienteDTO.getClienteDTO().setCliente((Cliente) tblDistribuidores.getSelectionModel().getSelectedItem());
-            stage.formClienteController(2);
+            DistribuidorDTO.getDistribuidorDTO().setDistribuidor((Distribuidor)tblDistribuidores.getSelectionModel().getSelectedItem());
+            stage.formDistribuidorControllerView(2);
         } else if (event.getSource() == btnEliminar) {
-            int cliId = ((Cliente) tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
-            eliminarCliente(cliId);
+            int disId = ((Distribuidor) tblDistribuidores.getSelectionModel().getSelectedItem()).getDistribuidorId();
+            eliminarDistribuidor(disId);
             cargarLista();
         } else if (event.getSource() == btnBuscar) {
-            tblClientes.getItems().clear();
+            tblDistribuidores.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {
                 cargarLista();
             } else {
-                tblClientes.getItems().add(buscarCliente());
-                colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
-                colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
-                colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
-                colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
-                colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
-                colNit.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nit"));
+                tblDistribuidores.setItems(listarDistribuidores());
+                colDistribuidorId.setCellValueFactory(new PropertyValueFactory<Distribuidor, Integer>("distribuidorId"));
+                colNombre.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("nombreDistribuidor"));
+                colWeb.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("web"));
+                colTelefono.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("telefonoDistribuidor"));
+                colDireccion.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("direccionDistribuidor"));
+                colNit.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("nitDistribuidor"));
             }
         }
-
     }
 
     public void cargarLista() {
@@ -141,12 +141,12 @@ public class MenuDistribuidoresController implements Initializable {
 
     
 
-    public void eliminarCliente(int cliId) {
+    public void eliminarDistribuidor(int disId) {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_eliminarCliente(?)";
+            String sql = "call sp_eliminarDistribuidor(?)";
             statement = conexion.prepareStatement(sql);
-            statement.setInt(1, cliId);
+            statement.setInt(1, disId);
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -167,22 +167,22 @@ public class MenuDistribuidoresController implements Initializable {
         }
     }
 
-    public Cliente buscarCliente() {
-        Cliente cliente = null;
+    public Distribuidor buscarDistribuidor() {
+        Distribuidor distribuidor = null;
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_BuscarCliente(?)";
+            String sql = "call sp_BuscarDistribuidor(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int clienteId = resultSet.getInt("clienteId");
-                String nombre = resultSet.getString("nombre");
-                String apellido = resultSet.getString("apellido");
-                String telefono = resultSet.getString("telefono");
-                String direccion = resultSet.getString("direccion");
-                String nit = resultSet.getString("nit");
-                cliente = (new Cliente(clienteId, nombre, apellido, telefono, direccion, nit));
+                int Id = resultSet.getInt("distribuidorId");
+                String nombre = resultSet.getString("nombreDistribuidor");
+                String direccion = resultSet.getString("direccionDistribuidor");
+                String nit = resultSet.getString("nitDistribuidor");
+                String telefono = resultSet.getString("telefonoDistribuidor");
+                String web = resultSet.getString("web");
+                distribuidor = new Distribuidor(Id,nombre,direccion,nit,telefono,web);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -201,7 +201,15 @@ public class MenuDistribuidoresController implements Initializable {
                 System.out.println(e.getMessage());
             }
         }
-        return cliente;
+        return distribuidor;
+    }
+
+    public Main getStage() {
+        return stage;
+    }
+
+    public void setStage(Main stage) {
+        this.stage = stage;
     }
     
     

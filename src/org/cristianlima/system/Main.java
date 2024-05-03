@@ -23,6 +23,8 @@ import org.cristianlima.controller.MenuPrincipalController;
 import org.cristianlima.controller.MenuTicketSoporteController;
 import org.cristianlima.controller.FormCargosController;
 import org.cristianlima.controller.FormCategoriasController;
+import org.cristianlima.controller.FormDistribuidoresController;
+import org.cristianlima.controller.MenuDistribuidoresController;
 
 /**
  *
@@ -147,8 +149,25 @@ public class Main extends Application {
     
     public void menuDistribuidoresView(){
         try{
-            MenuDistribuidoresController menuDistribuidoresView = (MenuDistribuidoresController)
-        }catch(Exception e)
+            MenuDistribuidoresController menuDistribuidoresView = (MenuDistribuidoresController) switchScene("MenuDistribuidoresView.fxml",1200,750);
+            menuDistribuidoresView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void formDistribuidorControllerView(int op){
+        try{
+            FormDistribuidoresController formDistribuidoresView = (FormDistribuidoresController) switchScene("FormDistribuidoresView.fxml",500,700);
+            formDistribuidoresView.setOp(op);
+            formDistribuidoresView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void MenuEmpleadosView(){
+        
     }
 
     /**

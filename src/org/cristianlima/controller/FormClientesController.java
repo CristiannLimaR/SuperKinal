@@ -67,7 +67,7 @@ public class FormClientesController implements Initializable {
             statement.execute();
         } catch (SQLException e) {
             e.getMessage();
-        } 
+        }
     }
 
     public void editarCliente() {

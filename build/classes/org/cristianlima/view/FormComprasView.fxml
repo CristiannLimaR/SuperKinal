@@ -8,12 +8,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cristianlima.controller.FormCategoriasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cristianlima.controller.FormComprasController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/form%20Categorias.png" />
-         </image></ImageView>
+         </image>
+      </ImageView>
       <TextField fx:id="tfCategoria" layoutX="65.0" layoutY="226.0" prefHeight="48.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
          <font>
             <Font size="18.0" />
