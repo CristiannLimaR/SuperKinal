@@ -120,7 +120,6 @@ create table Compras(
 );
 
 
-
 create table DetalleCompra(
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,

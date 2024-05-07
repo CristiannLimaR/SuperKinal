@@ -185,16 +185,7 @@ begin
 		(factId, prodId);
 end $$
 DELIMITER ;
-call sp_agregarProducto('Cerveza Gallo','Cerveza guatemalteca',200,8.5,6.5,5.6,null,3,2);
-call sp_listarProductos();
-call sp_listarFacturas();
-call sp_listarPromociones();
-call sp_listarDetalleFactura();
-select * from promociones PR 
-where NOW() between PR.fechaInicio and PR.fechaFinalizacion
-order by PR.fechaInicio desc;
-call sp_agregarFactura(1,1);
-call sp_agregarDetalleFactura(6,3);
+
  
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -301,10 +292,10 @@ DELIMITER ;
 -- --------------------------------- Empleados --------------------------------------
  
 DELIMITER $$
-create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int)
+create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encaId int)
 	begin
-		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId) values 
-			(nomEmp, apeEmp, sue, hoEn, hoSa, carid);
+		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId,encargadoId) values 
+			(nomEmp, apeEmp, sue, hoEn, hoSa, carid,encaId);
     end $$
 DELIMITER ;
  
@@ -448,7 +439,6 @@ create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varcha
     end $$
 DELIMITER ;
 
-call sp_agregarPromocion(4,'Si','2024-04-01','2024-05-10',3);
  
 
 DELIMITER $$
@@ -632,12 +622,7 @@ create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
     end $$
 DELIMITER ;
 
-call sp_agregarCompra('2024-05-07');
-call sp_listarCompras();
-call sp_agregarDetalleCompra(100,3,1);
-call sp_listarDetalleCompra();
-call sp_listarCompras();
-call sp_listarProductos();
+
 -- buscar
 DELIMITER $$
 create procedure sp_buscarDetalleCompra(in detCId int)
@@ -667,4 +652,4 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
     end $$
 DELIMITER ;
 
-call sp_listarEmpleados();
+

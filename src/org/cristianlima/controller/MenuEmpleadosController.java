@@ -98,6 +98,7 @@ public class MenuEmpleadosController implements Initializable {
     }
 
     public void cargarEditar() {
+        cargarCmbs();
         Empleado empleado = (Empleado) tblEmpleados.getSelectionModel().getSelectedItem();
         if (empleado != null) {
             tfId.setText(Integer.toString(empleado.getEmpleadoId()));
@@ -220,7 +221,11 @@ public class MenuEmpleadosController implements Initializable {
             statement.setString(4, tfEntrada.getText());
             statement.setString(5, tfSalida.getText());
             statement.setInt(6, ((Cargo) cmbCargo.getSelectionModel().getSelectedItem()).getCargoId());
-            statement.setInt(7, ((Empleado) cmbEncargado.getSelectionModel().getSelectedItem()).getEmpleadoId());
+            if(((Empleado) cmbEncargado.getSelectionModel().getSelectedItem()) == null){
+                statement.setNull(7, 0);
+            }else{
+                statement.setInt(7, ((Empleado) cmbEncargado.getSelectionModel().getSelectedItem()).getEmpleadoId());
+            }
             statement.execute();
 
         } catch (SQLException e) {

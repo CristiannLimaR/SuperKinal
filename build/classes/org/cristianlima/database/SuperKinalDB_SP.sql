@@ -179,12 +179,22 @@ DELIMITER ;
 
 -- -------------------- DetalleFactura ---------------------------------------
 DELIMITER $$
-create procedure sp_AgregarDetalleFactura(in factId int, in prodId int)
+create procedure sp_agregarDetalleFactura(in factId int, in prodId int)
 begin
 	insert into DetalleFactura(facturaId, productoId) values
 		(factId, prodId);
 end $$
 DELIMITER ;
+call sp_agregarProducto('Cerveza Gallo','Cerveza guatemalteca',200,8.5,6.5,5.6,null,3,2);
+call sp_listarProductos();
+call sp_listarFacturas();
+call sp_listarPromociones();
+call sp_listarDetalleFactura();
+select * from promociones PR 
+where NOW() between PR.fechaInicio and PR.fechaFinalizacion
+order by PR.fechaInicio desc;
+call sp_agregarFactura(1,1);
+call sp_agregarDetalleFactura(6,3);
  
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -309,7 +319,11 @@ create procedure sp_listarEmpleados()
         left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$
 DELIMITER ;
- 
+
+call sp_listarEmpleados();
+
+select * from empleados;
+
  
 DELIMITER $$
 create procedure sp_buscarEmpleado(in empId int)
@@ -412,6 +426,16 @@ create procedure sp_editarFacturas(in facId int, in tot decimal(10, 2), in cliId
             where facturaId = facId;
     end $$
 DELIMITER ;
+
+DELIMITER $$
+create procedure sp_asignarTotalFactura(in tot decimal(10,2),factId int)
+	begin
+		update Facturas set
+        total = tot
+        where facturaId = factId;
+    end$$
+DELIMITER ;
+
  
 -- --------------------- Promociones ------------------------------------------
  
@@ -423,6 +447,8 @@ create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varcha
 			(prePro, descPro, feIni, feFina, proId);
     end $$
 DELIMITER ;
+
+call sp_agregarPromocion(4,'Si','2024-04-01','2024-05-10',3);
  
 
 DELIMITER $$
@@ -475,10 +501,10 @@ create procedure sp_listarCompras()
 DELIMITER ;
 -- agregar
 DELIMITER $$
-create procedure sp_agregarCompra(in fecCom date, in totCom decimal (10,2))
+create procedure sp_agregarCompra(in fecCom date)
 	begin 
-		insert into Compras (fechaCompra, totalCompra) values
-			(fecCom, totCom);
+		insert into Compras (fechaCompra) values
+			(fecCom);
     end $$
 DELIMITER ;
 -- buscar
@@ -506,6 +532,16 @@ create procedure sp_eliminarCompra(in comId int)
 	begin 
 		delete from Compras
         where compraId = comId;
+    end $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_asignarTotalCompra(in comId int,in totCom decimal (10,2))
+	begin 
+		update Compras
+			set
+                totalCompra = totCom
+                where compraId = comId;
     end $$
 DELIMITER ;
 
@@ -554,11 +590,31 @@ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varch
     end $$
 DELIMITER ;
 -- eliminar 
+DELIMITER$$
 create procedure sp_eliminarProducto(in proId int)
 	begin
 		delete from Productos
 			where productoId = proId
     end $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_restarStock(in proId int)
+	begin 
+		update Productos set
+        cantidadStock = cantidadStock - 1
+        where productoId = proId;
+    end $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_agregarStock(in proId int,in cant int)
+	begin 
+		update Productos set
+        cantidadStock = cantidadStock + cant
+        where productoId = proId;
+    end $$
+DELIMITER ;
 -- ----------------------------------------------------DetalleCompra------------------------------------------------------------------
 -- listar
 DELIMITER $$
@@ -575,6 +631,13 @@ create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
 			(canC, proId, comId);
     end $$
 DELIMITER ;
+
+call sp_agregarCompra('2024-05-07');
+call sp_listarCompras();
+call sp_agregarDetalleCompra(100,3,1);
+call sp_listarDetalleCompra();
+call sp_listarCompras();
+call sp_listarProductos();
 -- buscar
 DELIMITER $$
 create procedure sp_buscarDetalleCompra(in detCId int)
