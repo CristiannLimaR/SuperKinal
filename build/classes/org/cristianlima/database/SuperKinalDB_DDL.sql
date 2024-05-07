@@ -147,3 +147,8 @@ create table DetalleFactura(
 insert into Compras(fechaCompra, totalCompra) values
 ('2006-05-12',100);
 
+
+
+insert into Distribuidores(nombreDistribuidor,direccionDistribuidor,nitDistribuidor,telefonoDistribuidor,web) values
+('Cerverceria Centroamericana','Guatemala','2345646','4575-8956','https://cerveceriacentroamericana.com/conoce/');
+

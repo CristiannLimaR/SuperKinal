@@ -25,6 +25,7 @@ import org.cristianlima.controller.FormCargosController;
 import org.cristianlima.controller.FormCategoriasController;
 import org.cristianlima.controller.FormDistribuidoresController;
 import org.cristianlima.controller.MenuDistribuidoresController;
+import org.cristianlima.controller.MenuEmpleadosController;
 
 /**
  *
@@ -167,7 +168,12 @@ public class Main extends Application {
     }
     
     public void MenuEmpleadosView(){
-        
+        try{
+            MenuEmpleadosController menuEmpleadoView = (MenuEmpleadosController)switchScene("MenuEmpleadosView.fxml",1400,750);
+            menuEmpleadoView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**

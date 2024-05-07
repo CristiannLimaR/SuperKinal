@@ -179,12 +179,22 @@ DELIMITER ;
 
 -- -------------------- DetalleFactura ---------------------------------------
 DELIMITER $$
-create procedure sp_AgregarDetalleFactura(in factId int, in prodId int)
+create procedure sp_agregarDetalleFactura(in factId int, in prodId int)
 begin
 	insert into DetalleFactura(facturaId, productoId) values
 		(factId, prodId);
 end $$
 DELIMITER ;
+call sp_agregarProducto('Cerveza Gallo','Cerveza guatemalteca',200,8.5,6.5,5.6,null,3,2);
+call sp_listarProductos();
+call sp_listarFacturas();
+call sp_listarPromociones();
+
+select * from promociones PR 
+where NOW() between PR.fechaInicio and PR.fechaFinalizacion
+order by PR.fechaInicio desc;
+call sp_agregarFactura(1,1);
+call sp_agregarDetalleFactura(6,3);
  
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -303,18 +313,26 @@ DELIMITER $$
 create procedure sp_listarEmpleados()
 	begin
 		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
-        C.nombreCargo,
-        E2.nombreEmpleado from Empleados E1
+        Concat('Id: ', C.cargoId ,  ' | ' , C.nombreCargo)as 'Cargo',
+        Concat('Id: ', E2.empleadoId ,  ' | ' , E2.nombreEmpleado,' ', E2.apellidoEmpleado) as 'Encargado' from Empleados E1
         join Cargos C on C.cargoId = E1.cargoId
         left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$
 DELIMITER ;
- 
+
+call sp_listarEmpleados();
+
+select * from empleados;
+
  
 DELIMITER $$
 create procedure sp_buscarEmpleado(in empId int)
 	begin
-		select * from Empleados
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        Concat('Id: ', C.cargoId ,  ' | ' , C.nombreCargo)as 'Cargo',
+        Concat('Id: ', E2.empleadoId ,  ' | ' , E2.nombreEmpleado,' ', E2.apellidoEmpleado) as 'Encargado' from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId
 			where empleadoId = empId;
     end $$
 DELIMITER ;
@@ -335,8 +353,8 @@ create procedure sp_editarEmpleado(in empId int, in nomEmp varchar(30),in apeEmp
 		update Empleados
 			set 
             nombreEmpleado = nomEmp,
-            apeEmp = apellidoEmpleado,
-            sueldo = suel,
+            apellidoEmpleado = apeEmp,
+            sueldo = sue,
             horaEntrada = hoEn,
             horaSalida = hoSa,
             cargoId = carId,
@@ -408,6 +426,16 @@ create procedure sp_editarFacturas(in facId int, in tot decimal(10, 2), in cliId
             where facturaId = facId;
     end $$
 DELIMITER ;
+
+DELIMITER $$
+create procedure sp_asignarTotalFactura(in tot decimal(10,2),factId int)
+	begin
+		update Facturas set
+        total = tot
+        where facturaId = factId;
+    end$$
+DELIMITER ;
+
  
 -- --------------------- Promociones ------------------------------------------
  
@@ -419,6 +447,8 @@ create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varcha
 			(prePro, descPro, feIni, feFina, proId);
     end $$
 DELIMITER ;
+
+call sp_agregarPromocion(4,'Si','2024-04-01','2024-05-10',3);
  
 
 DELIMITER $$
@@ -550,11 +580,31 @@ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varch
     end $$
 DELIMITER ;
 -- eliminar 
+DELIMITER$$
 create procedure sp_eliminarProducto(in proId int)
 	begin
 		delete from Productos
 			where productoId = proId
     end $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_restarStock(in proId int)
+	begin 
+		update Productos set
+        cantidadStock = cantidadStock - 1
+        where productoId = proId;
+    end $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_agregarStock(in proId int,in cant int)
+	begin 
+		update Productos set
+        cantidadStock = cantidadStock + cant
+        where productoId = proId;
+    end $$
+DELIMITER ;
 -- ----------------------------------------------------DetalleCompra------------------------------------------------------------------
 -- listar
 DELIMITER $$
@@ -600,4 +650,4 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
     end $$
 DELIMITER ;
 
-
+call sp_listarEmpleados();

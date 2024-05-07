@@ -19,7 +19,7 @@ import org.cristianlima.system.Main;
 public class MenuPrincipalController implements Initializable {
     private Main stage;
     @FXML
-    MenuItem btnMenuClientes, btnMenuTicketSoporte, btnCargos,btnCategoria,btnCompras,btnDistribuidores;
+    MenuItem btnMenuClientes, btnMenuTicketSoporte, btnCargos,btnCategoria,btnCompras,btnDistribuidores,btnEmpleados;
     
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -48,6 +48,8 @@ public class MenuPrincipalController implements Initializable {
             stage.menuComprasView();
         }else if(event.getSource() == btnDistribuidores){
             stage.menuDistribuidoresView();
+        }else if(event.getSource() == btnEmpleados){
+            stage.MenuEmpleadosView();
         }
     }
     

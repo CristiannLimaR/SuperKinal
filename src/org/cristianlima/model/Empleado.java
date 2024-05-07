@@ -15,7 +15,7 @@ public class Empleado {
 
     private int empleadoId;
     private String nombreEmpleado;
-    private String apelligoEmpleado;
+    private String apellidoEmpleado;
     private Double sueldo;
     private Time horaEntrada;
     private Time horaSalida;
@@ -24,10 +24,10 @@ public class Empleado {
     private String encargado;
     private int encargadoId;
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apelligoEmpleado, Double sueldo, Time horaEntrada, Time horaSalida, String cargo, String encargado) {
+    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, Double sueldo, Time horaEntrada, Time horaSalida, String cargo, String encargado) {
         this.empleadoId = empleadoId;
         this.nombreEmpleado = nombreEmpleado;
-        this.apelligoEmpleado = apelligoEmpleado;
+        this.apellidoEmpleado = apellidoEmpleado;
         this.sueldo = sueldo;
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
@@ -35,10 +35,10 @@ public class Empleado {
         this.encargado = encargado;
     }
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apelligoEmpleado, Double sueldo, Time horaEntrada, Time horaSalida, int cargoId, int encargadoId) {
+    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, Double sueldo, Time horaEntrada, Time horaSalida, int cargoId, int encargadoId) {
         this.empleadoId = empleadoId;
         this.nombreEmpleado = nombreEmpleado;
-        this.apelligoEmpleado = apelligoEmpleado;
+        this.apellidoEmpleado = apellidoEmpleado;
         this.sueldo = sueldo;
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
@@ -62,12 +62,12 @@ public class Empleado {
         this.nombreEmpleado = nombreEmpleado;
     }
 
-    public String getApelligoEmpleado() {
-        return apelligoEmpleado;
+    public String getApellidoEmpleado() {
+        return apellidoEmpleado;
     }
 
-    public void setApelligoEmpleado(String apelligoEmpleado) {
-        this.apelligoEmpleado = apelligoEmpleado;
+    public void setApellidoEmpleado(String apellidoEmpleado) {
+        this.apellidoEmpleado = apellidoEmpleado;
     }
 
     public Double getSueldo() {
@@ -128,7 +128,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "empleadoId=" + empleadoId + ", nombreEmpleado=" + nombreEmpleado + ", apelligoEmpleado=" + apelligoEmpleado + ", sueldo=" + sueldo + ", horaEntrada=" + horaEntrada + ", horaSalida=" + horaSalida + ", cargo=" + cargo + ", cargoId=" + cargoId + ", encargado=" + encargado + ", encargadoId=" + encargadoId + '}';
+        return "Id: " + empleadoId + " | " +  nombreEmpleado + " "+ apellidoEmpleado ;
     }
     
     

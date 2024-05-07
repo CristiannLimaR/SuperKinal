@@ -50,7 +50,7 @@ public class Cargo {
     
     @Override
     public String toString() {
-        return  "Id: " + cargoId +  "| " + nombreCargo;
+        return  "Id: " + cargoId +  " | " + nombreCargo;
     }
     
 }

@@ -302,7 +302,11 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarEmpleados()
 	begin
-		select * from Empleados;
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        Concat('Id: ', C.cargoId ,  ' | ' , C.nombreCargo)as 'Cargo',
+        Concat('Id: ', E2.empleadoId ,  ' | ' , E2.nombreEmpleado,' ', E2.apellidoEmpleado) as 'Encargado' from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$
 DELIMITER ;
  
@@ -310,7 +314,11 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_buscarEmpleado(in empId int)
 	begin
-		select * from Empleados
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        Concat('Id: ', C.cargoId ,  ' | ' , C.nombreCargo)as 'Cargo',
+        Concat('Id: ', E2.empleadoId ,  ' | ' , E2.nombreEmpleado,' ', E2.apellidoEmpleado) as 'Encargado' from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId
 			where empleadoId = empId;
     end $$
 DELIMITER ;
@@ -331,8 +339,8 @@ create procedure sp_editarEmpleado(in empId int, in nomEmp varchar(30),in apeEmp
 		update Empleados
 			set 
             nombreEmpleado = nomEmp,
-            apeEmp = apellidoEmpleado,
-            sueldo = suel,
+            apellidoEmpleado = apeEmp,
+            sueldo = sue,
             horaEntrada = hoEn,
             horaSalida = hoSa,
             cargoId = carId,
@@ -596,3 +604,4 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
     end $$
 DELIMITER ;
 
+call sp_listarEmpleados();
