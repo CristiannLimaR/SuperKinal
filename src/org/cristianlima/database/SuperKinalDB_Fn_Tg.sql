@@ -1,38 +1,6 @@
 use superkinaldb;
 
 delimiter $$
-
-create procedure sp_agregarDetalleFactura(in facId int,in proId int)
-
-	begin
-
-		insert into DetalleFactura(facturaId, productoId) values 
-
-		(facId, proId);
-
-	end $$
-
-delimiter ;
-
- 
-delimiter $$
-
-create procedure sp_asignarTotal(in tot decimal(10,2), in facId int)
-
-begin 
-
-	update Facturas
-		set total = tot 
-		where facturaId = facId;
-
-end$$
-
-delimiter ;
- 
- 
-    
-
-delimiter $$
 create function fn_calcularTotal (factId int) returns decimal(10,2) deterministic
 begin
 
@@ -75,24 +43,59 @@ begin
     set i = i + 1;
     end loop totalLoop;
 
-    call sp_asignarTotal(total, factId);
+    call sp_asignarTotalFactura(total, factId);
+    
+    return total;
+end $$
+delimiter ;
+
+delimiter $$
+create function fn_calcularTotalCompra (comId int) returns decimal(10,2) deterministic
+begin
+
+	declare total decimal(10,2) default 0.0;
+    declare precio decimal(10,2);
+    declare i int default 1;
+    declare curCompraId, curProductoId int;
+    declare curCantidad decimal(10,2);
+    
+    
+    declare cursorDetalleCompra cursor for 
+    select DC.cantidadCompra, DC.productoId,DC.compraId from DetalleCompra DC;
+
+    open cursorDetalleCompra;
+    
+    totalLoop :loop
+
+    fetch cursorDetalleCompra into curCantidad, curProductoId,curCompraId;
+
+
+	if comId = curCompraId then
+		set precio = curCantidad * (select P.precioCompra from Productos P where P.productoId = curProductoId);
+        set total = total + precio;
+    end if;
+
+    if i = (select count(*) from detalleCompra) then
+		leave totalLoop;
+	end if;
+
+    set i = i + 1;
+    end loop totalLoop;
+
+    call sp_asignarTotalCompra(comId,total);
     
     return total;
 end $$
 delimiter ;
 
 
-
 delimiter $$
-create trigger tg_agregarTotal
+create trigger tg_agregarTotalFactura
 after insert on DetalleFactura
 for each row
 Begin
-
-	declare total decimal(10.2);
-
+	declare total decimal(10,2);
     set total = (select fn_calcularTotal(new.facturaId));
-
 end$$
 delimiter ;
 
@@ -104,6 +107,17 @@ begin
 	call sp_restarStock(New.productoId);
 end$$
 delimiter ;
+
+delimiter $$
+create trigger tg_agregarTotalCompra
+after insert on DetalleCompra
+for each row 
+begin
+	declare total decimal(10,2);
+    set total = (select fn_calcularTotalCompra(new.compraId));
+end$$
+delimiter ;
+
 
 delimiter $$
 create trigger tg_agregarStock
