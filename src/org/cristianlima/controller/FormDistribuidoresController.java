@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.cristianlima.dao.Conexion;
-import org.cristianlima.dto.ClienteDTO;
 import org.cristianlima.dto.DistribuidorDTO;
 import org.cristianlima.model.Distribuidor;
 import org.cristianlima.system.Main;
@@ -72,9 +71,6 @@ public class FormDistribuidoresController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
                 }
             }
-        }else if (event.getSource() == btnSalir) {
-            stage.menuDistribuidoresView();
-            DistribuidorDTO.getDistribuidorDTO().setDistribuidor(null);
         }
     }
 

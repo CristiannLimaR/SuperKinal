@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.cristianlima.controller.CargarImagenController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/ImagenFondo.png" />
+         </image>
+      </ImageView>
+      <StackPane layoutX="54.0" layoutY="93.0" prefHeight="260.0" prefWidth="486.0">
+         <children>
+            <ImageView fx:id="imgProducto" fitHeight="260.0" fitWidth="464.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
+      <TextField fx:id="tfId" layoutX="142.0" layoutY="59.0" prefHeight="26.0" prefWidth="42.0" />
+      <TextField fx:id="tfProducto" layoutX="365.0" layoutY="59.0" prefHeight="26.0" prefWidth="154.0" />
+   </children>
+</AnchorPane>

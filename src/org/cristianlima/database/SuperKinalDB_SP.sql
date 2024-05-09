@@ -491,12 +491,14 @@ create procedure sp_listarCompras()
 DELIMITER ;
 -- agregar
 DELIMITER $$
-create procedure sp_agregarCompra(in fecCom date)
+create procedure sp_agregarCompra(in fecCom date,cant int, proId int)
 	begin 
 		insert into Compras (fechaCompra) values
 			(fecCom);
     end $$
 DELIMITER ;
+
+call sp_agregarCompra(now(),10,3);
 -- buscar
 DELIMITER $$
 create procedure sp_buscarCompra(in comId int)
@@ -540,30 +542,38 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarProductos()
 	begin 
-		select * from Productos;
+		select P.productoId,P.nombreProducto,P.descripcionProducto,P.cantidadStock,P.precioVentaUnitario,P.precioVentaMayor,P.precioCompra,P.imagenProducto,
+        concat(D.distribuidorId, ': | ' , D.nombreDistribuidor ) as 'Distribuidor',
+        concat(C.categoriaProductosId, ': | ', C.nombreCategoria) as 'Categoria' from Productos P
+        join Distribuidores D on P.distribuidorId = D.distribuidorId
+        join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId;
     end $$
 DELIMITER ;
 -- agregar
 DELIMITER $$
-create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
+create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima mediumblob, in disId int, in catId int)
 	begin
 		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
 			(nom, des, can, preU, preM, preC, ima, disId, catId);
 	end $$
 DELIMITER ;
 
-
+call sp_listarProductos();
 -- buscar
 DELIMITER $$
 create procedure sp_buscarProducto(in proId int)
 	begin 
-		select * from Productos
+		select P.productoId,P.nombreProducto,P.descripcionProducto,P.cantidadStock,P.precioVentaUnitario,P.precioVentaMayor,P.precioCompra,P.imagenProducto,
+        concat(D.distribuidorId, ': | ' , D.nombreDistribuidor ) as 'Distribuidor',
+        concat(C.categoriaProductosId, ': | ', C.nombreCategoria) as 'Categoria'from Productos P
+        join Distribuidores D on P.distribuidorId = D.distribuidorId
+        join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId
         where productoId = proId;
     end $$
 DELIMITER ;
 -- editar
 DELIMITER $$
-create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int )
+create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima mediumblob, in disId int, in catId int )
 	begin
 		update Productos	
 			set 
@@ -579,12 +589,15 @@ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varch
             where productoId = proId;
     end $$
 DELIMITER ;
+
+
+
 -- eliminar 
-DELIMITER$$
+DELIMITER $$
 create procedure sp_eliminarProducto(in proId int)
 	begin
 		delete from Productos
-			where productoId = proId
+			where productoId = proId;
     end $$
 DELIMITER ;
 
@@ -605,14 +618,22 @@ create procedure sp_agregarStock(in proId int,in cant int)
         where productoId = proId;
     end $$
 DELIMITER ;
--- ----------------------------------------------------DetalleCompra------------------------------------------------------------------
+-- ----------------------------------------------------DetalleCompra------------------------------------------------------------S------
 -- listar
 DELIMITER $$
-create procedure sp_ListarDetalleCompra()
+create procedure sp_ListarDetalleCompras()
 	begin 
-		select * from DetalleCompra;
+		select C.compraId, C.fechaCompra,C.totalCompra,
+				concat(P.productoId, P.nombreProducto) as 'Producto',
+                DC.cantidadCompra from DetalleCompra DC
+                join Compras C on DC.compraId = C.compraId
+                join Productos P on DC.productoId = P.productoId;
+                
     end $$
 DELIMITER ;
+
+call sp_agregarDetalleCompra(100,3,2);
+call sp_listarCompras();
 -- agregar
 DELIMITER $$
 create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)

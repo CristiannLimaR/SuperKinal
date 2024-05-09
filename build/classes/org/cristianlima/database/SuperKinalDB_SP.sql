@@ -185,16 +185,7 @@ begin
 		(factId, prodId);
 end $$
 DELIMITER ;
-call sp_agregarProducto('Cerveza Gallo','Cerveza guatemalteca',200,8.5,6.5,5.6,null,3,2);
-call sp_listarProductos();
-call sp_listarFacturas();
-call sp_listarPromociones();
-call sp_listarDetalleFactura();
-select * from promociones PR 
-where NOW() between PR.fechaInicio and PR.fechaFinalizacion
-order by PR.fechaInicio desc;
-call sp_agregarFactura(1,1);
-call sp_agregarDetalleFactura(6,3);
+
  
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -301,10 +292,10 @@ DELIMITER ;
 -- --------------------------------- Empleados --------------------------------------
  
 DELIMITER $$
-create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int)
+create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encaId int)
 	begin
-		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId) values 
-			(nomEmp, apeEmp, sue, hoEn, hoSa, carid);
+		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId,encargadoId) values 
+			(nomEmp, apeEmp, sue, hoEn, hoSa, carid,encaId);
     end $$
 DELIMITER ;
  
@@ -448,7 +439,6 @@ create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varcha
     end $$
 DELIMITER ;
 
-call sp_agregarPromocion(4,'Si','2024-04-01','2024-05-10',3);
  
 
 DELIMITER $$
@@ -550,30 +540,38 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarProductos()
 	begin 
-		select * from Productos;
+		select P.productoId,P.nombreProducto,P.descripcionProducto,P.cantidadStock,P.precioVentaUnitario,P.precioVentaMayor,P.precioCompra,P.imagenProducto,
+        concat(D.distribuidorId, ': | ' , D.nombreDistribuidor ) as 'Distribuidor',
+        concat(C.categoriaProductosId, ': | ', C.nombreCategoria) as 'Categoria' from Productos P
+        join Distribuidores D on P.distribuidorId = D.distribuidorId
+        join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId;
     end $$
 DELIMITER ;
 -- agregar
 DELIMITER $$
-create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
+create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima mediumblob, in disId int, in catId int)
 	begin
 		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
 			(nom, des, can, preU, preM, preC, ima, disId, catId);
 	end $$
 DELIMITER ;
 
-
+call sp_listarProductos();
 -- buscar
 DELIMITER $$
 create procedure sp_buscarProducto(in proId int)
 	begin 
-		select * from Productos
+		select P.productoId,P.nombreProducto,P.descripcionProducto,P.cantidadStock,P.precioVentaUnitario,P.precioVentaMayor,P.precioCompra,P.imagenProducto,
+        concat(D.distribuidorId, ': | ' , D.nombreDistribuidor ) as 'Distribuidor',
+        concat(C.categoriaProductosId, ': | ', C.nombreCategoria) as 'Categoria'from Productos P
+        join Distribuidores D on P.distribuidorId = D.distribuidorId
+        join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId
         where productoId = proId;
     end $$
 DELIMITER ;
 -- editar
 DELIMITER $$
-create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int )
+create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima mediumblob, in disId int, in catId int )
 	begin
 		update Productos	
 			set 
@@ -589,12 +587,15 @@ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varch
             where productoId = proId;
     end $$
 DELIMITER ;
+
+
+
 -- eliminar 
-DELIMITER$$
+DELIMITER $$
 create procedure sp_eliminarProducto(in proId int)
 	begin
 		delete from Productos
-			where productoId = proId
+			where productoId = proId;
     end $$
 DELIMITER ;
 
@@ -632,12 +633,7 @@ create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
     end $$
 DELIMITER ;
 
-call sp_agregarCompra('2024-05-07');
-call sp_listarCompras();
-call sp_agregarDetalleCompra(100,3,1);
-call sp_listarDetalleCompra();
-call sp_listarCompras();
-call sp_listarProductos();
+
 -- buscar
 DELIMITER $$
 create procedure sp_buscarDetalleCompra(in detCId int)
@@ -667,4 +663,4 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
     end $$
 DELIMITER ;
 
-call sp_listarEmpleados();
+

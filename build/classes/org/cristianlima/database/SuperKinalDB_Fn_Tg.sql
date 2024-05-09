@@ -119,6 +119,7 @@ end$$
 delimiter ;
 
 
+
 delimiter $$
 create trigger tg_agregarStock
 after insert on detalleCompra

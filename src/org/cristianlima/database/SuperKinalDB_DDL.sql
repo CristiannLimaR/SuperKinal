@@ -90,7 +90,7 @@ create table Productos(
     precioVentaUnitario decimal(10,2) not null,
     precioVentaMayor decimal(10,2) not null,
     precioCompra decimal(10,2) not null,
-    imagenProducto BLOB,
+    imagenProducto mediumblob,
     distribuidorId int not null,
     categoriaProductosId int not null,
     primary key PK_productoId (productoId),
@@ -99,6 +99,8 @@ create table Productos(
 	constraint FK_Productos_CategoriaProductos foreign key (categoriaProductosId)
 		references CategoriaProductos(categoriaProductosId)
 );
+
+
 
 create table Promociones(
 	promocionId int not null auto_increment,
