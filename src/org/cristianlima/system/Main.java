@@ -27,7 +27,9 @@ import org.cristianlima.controller.FormDistribuidoresController;
 import org.cristianlima.controller.FormProductosController;
 import org.cristianlima.controller.MenuDistribuidoresController;
 import org.cristianlima.controller.MenuEmpleadosController;
+import org.cristianlima.controller.MenuFacturasController;
 import org.cristianlima.controller.MenuProductosController;
+import org.cristianlima.controller.MenuPromocionesController;
 
 /**
  *
@@ -143,7 +145,7 @@ public class Main extends Application {
     
     public void menuComprasView(){
         try{
-           MenuComprasController menuComprasView = (MenuComprasController) switchScene("MenuComprasView.fxml",1200,750);
+           MenuComprasController menuComprasView = (MenuComprasController) switchScene("MenuComprasView.fxml",1300,750);
            menuComprasView.setStage(this);
         }catch(Exception e){
             e.printStackTrace();
@@ -197,8 +199,23 @@ public class Main extends Application {
         }
     }
     
+    public void menuPromocionesView(){
+        try{
+            MenuPromocionesController menuPromocionView = (MenuPromocionesController )switchScene("MenuPromocionesView.fxml",1300,750);
+            menuPromocionView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     
-
+    public void menuFacturasView(){
+        try{
+            MenuFacturasController menuFacturaView = (MenuFacturasController)switchScene("MenuFacturasView.fxml",1400,750);
+            menuFacturaView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * @param args the command line arguments
      */

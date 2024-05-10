@@ -7,9 +7,11 @@ package org.cristianlima.controller;
  */
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -26,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.model.Cliente;
+import org.cristianlima.model.Factura;
 import org.cristianlima.model.TicketSoporte;
 import org.cristianlima.system.Main;
 
@@ -109,6 +112,7 @@ public class MenuTicketSoporteController implements Initializable {
         for(int i = 0; i<= cmbClientes.getItems().size();i++){
             String clienteCmb = cmbClientes.getItems().get(i).toString();
             String clienteTbl = ((TicketSoporte) tblTickets.getSelectionModel().getSelectedItem()).getCliente();
+            
             if(clienteCmb.equals(clienteTbl)){
                 index = i;
                 break;
@@ -272,6 +276,43 @@ public class MenuTicketSoporteController implements Initializable {
             }
         }
         return FXCollections.observableList(clientes);
+    }
+    
+    public ObservableList<Factura> listarFacturas() {
+        ArrayList<Factura> facturas = new ArrayList<>();
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarFacturas()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int facturaId = resultSet.getInt("facturaId");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                String empleado = resultSet.getString("Empleado");
+                String cliente = resultSet.getString("Cliente");
+                double total = resultSet.getDouble("total");
+                facturas.add(new Factura(facturaId, fecha, hora,empleado, cliente, total));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return FXCollections.observableList(facturas);
     }
 
 }

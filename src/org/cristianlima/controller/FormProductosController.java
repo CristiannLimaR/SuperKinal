@@ -7,6 +7,7 @@ package org.cristianlima.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
@@ -52,7 +53,7 @@ public class FormProductosController implements Initializable {
     private Main stage;
     private int op;
     private List<File> files = null;
-    private File imageFile;
+    InputStream img;
     FileChooser fileChooser = new FileChooser();
 
     @FXML
@@ -99,6 +100,7 @@ public class FormProductosController implements Initializable {
                         && cmbDistribuidor.getSelectionModel().getSelectedItem() != null && cmbCategoria.getSelectionModel().getSelectedItem() != null) {
                     editarProducto();
                     ProductoDTO.getProductoDTO().setProducto(null);
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
                     stage.menuProductosView();
                 } else {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
@@ -111,13 +113,15 @@ public class FormProductosController implements Initializable {
 
     public Image mostrarImagen(Blob blob) {
         Image imagen = null;
-        try {
-            InputStream file = blob.getBinaryStream();
-            imagen = new Image(file);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (blob != null) {
+            try {
+               img = blob.getBinaryStream();
+                imagen = new Image(img);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+
         return imagen;
     }
 
@@ -129,8 +133,8 @@ public class FormProductosController implements Initializable {
         tfPrecioU.setText(Double.toString(producto.getPrecioVentaUnitario()));
         tfPrecioM.setText(Double.toString(producto.getPrecioVentaMayor()));
         tfPrecioC.setText(Double.toString(producto.getPrecioCompra()));
-        cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor(producto.getDistribuidorId()));
-        cmbCategoria.getSelectionModel().select(obtenerIndexCategoria(producto.getCategoriaProductosId()));
+        cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor(producto.getDistribuidor()));
+        cmbCategoria.getSelectionModel().select(obtenerIndexCategoria(producto.getCategoria()));
         imgCargar.setImage(mostrarImagen(producto.getImagenProducto()));
     }
 
@@ -139,50 +143,31 @@ public class FormProductosController implements Initializable {
         cmbCategoria.setItems(listarCategorias());
     }
 
-    public int obtenerIndexDistribuidor(int id) {
+    public int obtenerIndexDistribuidor(String distribuidor) {
         int index = 0;
         for (int i = 0; i < cmbDistribuidor.getItems().size(); i++) {
-            int disCmb = ((Distribuidor) cmbDistribuidor.getItems().get(i)).getDistribuidorId();
-            if (disCmb == id) {
+            String disCmb = cmbDistribuidor.getItems().get(i).toString();
+            
+            if (disCmb.equals(distribuidor)) {
                 index = i;
                 break;
             }
         }
         return index;
     }
+    
+   
 
-    public int obtenerIndexCategoria(int id) {
+    public int obtenerIndexCategoria(String categoria) {
         int index = 0;
         for (int i = 0; i < cmbCategoria.getItems().size(); i++) {
-            int catCmb = ((CategoriaProducto) cmbCategoria.getItems().get(i)).getCategoriaProductosId();
-            if (catCmb == id) {
+            String catCmb = cmbCategoria.getItems().get(i).toString();
+            if (catCmb.equals(categoria)) {
                 index = i;
                 break;
             }
         }
         return index;
-    }
-
-    @FXML
-    private void seleccionarImagen() {
-        try {
-            fileChooser.setTitle("Seleccione una imagen");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-            File file = fileChooser.showOpenDialog(new Stage());
-            
-
-            if (file != null) {
-                imageFile = file;
-                FileInputStream file1 = new FileInputStream(file);
-                Image image = new Image(file1);
-                imgCargar.setImage(image);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     @FXML
@@ -196,9 +181,8 @@ public class FormProductosController implements Initializable {
     public void handleOnDrop(DragEvent event) {
         try {
             files = event.getDragboard().getFiles();
-            imageFile = files.get(0);
-            FileInputStream file = new FileInputStream(imageFile);
-            Image image = new Image(file);
+            img = new FileInputStream(files.get(0));
+            Image image = new Image(img);
             imgCargar.setImage(image);
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,7 +203,7 @@ public class FormProductosController implements Initializable {
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(7, null);
             } else {
-                InputStream img = new FileInputStream(imageFile);
+                InputStream img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(7, img);
             }
             statement.setInt(8, ((Distribuidor) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
@@ -257,7 +241,7 @@ public class FormProductosController implements Initializable {
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(8, null);
             } else {
-                InputStream img = new FileInputStream(imageFile);
+                img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(8, img);
             }
             statement.setInt(9, ((Distribuidor) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
@@ -265,7 +249,7 @@ public class FormProductosController implements Initializable {
             statement.execute();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (statement != null) {

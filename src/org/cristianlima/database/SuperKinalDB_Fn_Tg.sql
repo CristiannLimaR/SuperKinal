@@ -89,6 +89,8 @@ end $$
 delimiter ;
 
 
+call sp_listarFacturas();
+call sp_listarDetalleFactura();
 delimiter $$
 create trigger tg_agregarTotalFactura
 after insert on DetalleFactura
@@ -117,6 +119,7 @@ begin
     set total = (select fn_calcularTotalCompra(new.compraId));
 end$$
 delimiter ;
+
 
 delimiter $$
 create trigger tg_agregarStock

@@ -66,6 +66,7 @@ public class MenuEmpleadosController implements Initializable {
         if (event.getSource() == btnRegresar) {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
+            
             if (tfId.getText().isEmpty()) {
                 agregarEmpleado();
                 cargarDatos();
@@ -145,10 +146,11 @@ public class MenuEmpleadosController implements Initializable {
     public int obtenerIndexCargo() {
         int index = 0;
         for (int i = 0; i < cmbCargo.getItems().size(); i++) {
-            int cargoCmb;
-            cargoCmb = ((Cargo) cmbCargo.getItems().get(i)).getCargoId();
-            int cargoTbl = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getCargoId();
-            if (cargoCmb == cargoTbl) {
+            String cargoCmb = cmbCargo.getItems().get(i).toString();
+            String cargoTbl = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getCargo();
+            System.out.println(cargoCmb);
+            System.out.println(cargoTbl);
+            if (cargoCmb.equals(cargoTbl)) {
                 index = i;
                 break;
             }
@@ -161,6 +163,8 @@ public class MenuEmpleadosController implements Initializable {
         for (int i = 0; i < cmbEncargado.getItems().size(); i++) {
             String encargadoCmb = cmbEncargado.getItems().get(i).toString();
             String encargadoTbl = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getEncargado();
+            System.out.println(encargadoCmb);
+            System.out.println(encargadoTbl);
             if (encargadoCmb.equals(encargadoTbl)) {
                 index = i;
                 break;

@@ -23,20 +23,20 @@
       </ImageView>
       <TextField fx:id="tfId" editable="false" layoutX="96.0" layoutY="194.0" prefHeight="40.0" prefWidth="173.0" promptText="CompraId" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbProducto" layoutX="85.0" layoutY="296.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <TableView fx:id="tblCompras" layoutX="111.0" layoutY="377.0"  prefHeight="347.0" prefWidth="615.0">
+      <TableView fx:id="tblCompras" layoutX="111.0" layoutY="377.0" onMouseClicked="#cargarDatosEditar" prefHeight="347.0" prefWidth="800.0">
          <columns>
             <TableColumn fx:id="colId" text="CompraId" />
-            <TableColumn fx:id="colFecha" prefWidth="162.0" text="Fecha" />
-            <TableColumn fx:id="colProducto" prefWidth="122.0" text="Producto" />
-            <TableColumn fx:id="colCantidad" prefWidth="122.0" text="Cantidad" />
-            <TableColumn fx:id="colTotal" prefWidth="122.0" text="Total" />
+            <TableColumn fx:id="colFecha" prefWidth="160.0" text="Fecha" />
+            <TableColumn fx:id="colProducto" prefWidth="240.0" text="Producto" />
+            <TableColumn fx:id="colCantidad" prefWidth="160.0" text="Cantidad" />
+            <TableColumn fx:id="colTotal" prefWidth="160.0" text="Total" />
          </columns>
       </TableView>
       <Button fx:id="btnRegresar" alignment="CENTER" layoutX="1057.0" layoutY="683.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="36.0" prefWidth="180.0" style="-fx-background-color: #F2133C; -fx-background-radius: 20;" text="Regresar" />
       <DatePicker fx:id="dpFecha" layoutX="691.0" layoutY="193.0" />
       <TextField fx:id="tfTotal" editable="false" layoutX="421.0" layoutY="189.0" prefHeight="40.0" prefWidth="173.0" promptText="Total" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <TextField fx:id="tfCantidad" layoutX="427.0" layoutY="297.0" prefHeight="40.0" prefWidth="173.0" promptText="Cantidad" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <Button fx:id="btnAgregar" alignment="CENTER" layoutX="647.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="32.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" textFill="WHITE">
+      <Button fx:id="btnGuardar" alignment="CENTER" layoutX="747.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="32.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -48,37 +48,43 @@
             </ImageView>
          </graphic>
       </Button>
-      <GridPane layoutX="853.0" layoutY="407.0" prefHeight="218.0" prefWidth="401.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <GridPane alignment="CENTER" layoutX="1011.0" layoutY="206.0" prefHeight="472.0" prefWidth="243.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Button fx:id="btnVaciar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Vaciar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="btnListar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Listar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Guardar" textFill="WHITE" GridPane.halignment="CENTER">
+            <Button fx:id="btnEditar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Editar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Eliminar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Reportes" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button fx:id="btnVaciar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Vaciar" textFill="WHITE" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </children>
       </GridPane>
+      <TextField fx:id="tfBuscar" layoutX="659.0" layoutY="336.0" prefHeight="26.0" prefWidth="199.0" promptText="Ingrese el Id del Producto a Buscar" />
+      <Button fx:id="btnBuscar" layoutX="875.0" layoutY="335.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="30.0">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/buscarIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

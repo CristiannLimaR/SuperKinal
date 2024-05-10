@@ -4,17 +4,37 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuComprasController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuPromocionesController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuTicketSoporteController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/view/MenuPromocionesView.fxml</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/view/MenuFacturasView.fxml</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuClientesController.java</file>
             <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/system/Main.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormProductosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Distribuidor.java</file>
             <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuCargosController.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/DetalleCompra.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormDistribuidoresController.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Compra.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/view/MenuComprasView.fxml</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormCargosController.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormComprasController.java</file>
-            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuEmpleadosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/view/MenuProductosView.fxml</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/DetalleFactura.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/CategoriaProducto.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Promocion.java</file>
             <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuProductosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Empleado.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormCategoriasController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuDistribuidoresController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormProductosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Factura.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuFacturasController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/DetalleCompra.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/TicketSoporte.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormDistribuidoresController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Producto.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormCargosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Cargo.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuPrincipalController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/FormClientesController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/database/SuperKinalDB_SP.sql</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/view/FormProductosView.fxml</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/controller/MenuEmpleadosController.java</file>
+            <file>file:/C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/model/Cliente.java</file>
         </group>
     </open-files>
 </project-private>

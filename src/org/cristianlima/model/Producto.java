@@ -24,8 +24,34 @@ public class Producto {
     private int categoriaProductosId;
     private String distribuidor;
     private String Categoria;
+    
 
     public Producto() {
+    }
+
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, int distribuidorId, int categoriaProductosId) {
+        this.productoId = productoId;
+        this.nombreProducto = nombreProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.cantidadStock = cantidadStock;
+        this.precioVentaUnitario = precioVentaUnitario;
+        this.precioVentaMayor = precioVentaMayor;
+        this.precioCompra = precioCompra;
+        this.imagenProducto = imagenProducto;
+        this.distribuidorId = distribuidorId;
+        this.categoriaProductosId = categoriaProductosId;
+    }
+
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, int distribuidorId, int categoriaProductosId) {
+        this.productoId = productoId;
+        this.nombreProducto = nombreProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.cantidadStock = cantidadStock;
+        this.precioVentaUnitario = precioVentaUnitario;
+        this.precioVentaMayor = precioVentaMayor;
+        this.precioCompra = precioCompra;
+        this.distribuidorId = distribuidorId;
+        this.categoriaProductosId = categoriaProductosId;
     }
 
     public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, String distribuidor, String Categoria) {
@@ -52,34 +78,8 @@ public class Producto {
         this.distribuidor = distribuidor;
         this.Categoria = Categoria;
     }
-    
-    
-
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, int distribuidorId, int categoriaProductosId) {
-        this.productoId = productoId;
-        this.nombreProducto = nombreProducto;
-        this.descripcionProducto = descripcionProducto;
-        this.cantidadStock = cantidadStock;
-        this.precioVentaUnitario = precioVentaUnitario;
-        this.precioVentaMayor = precioVentaMayor;
-        this.precioCompra = precioCompra;
-        this.distribuidorId = distribuidorId;
-        this.categoriaProductosId = categoriaProductosId;
-    }
 
     
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, int distribuidorId, int categoriaProductosId) {
-        this.productoId = productoId;
-        this.nombreProducto = nombreProducto;
-        this.descripcionProducto = descripcionProducto;
-        this.cantidadStock = cantidadStock;
-        this.precioVentaUnitario = precioVentaUnitario;
-        this.precioVentaMayor = precioVentaMayor;
-        this.precioCompra = precioCompra;
-        this.imagenProducto = imagenProducto;
-        this.distribuidorId = distribuidorId;
-        this.categoriaProductosId = categoriaProductosId;
-    }
 
     public int getProductoId() {
         return productoId;
@@ -181,10 +181,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "productoId=" + productoId + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", cantidadStock=" + cantidadStock + ", precioVentaUnitario=" + precioVentaUnitario + ", precioVentaMayor=" + precioVentaMayor + ", precioCompra=" + precioCompra + ", imagenProducto=" + imagenProducto + ", distribuidorId=" + distribuidorId + ", categoriaProductosId=" + categoriaProductosId + '}';
+        return "Id: " + productoId + " | " + nombreProducto;
     }
-    
-    
-    
     
 }

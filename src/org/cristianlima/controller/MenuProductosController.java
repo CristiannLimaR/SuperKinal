@@ -82,7 +82,6 @@ public class MenuProductosController implements Initializable {
             } else if (event.getSource() == btnImagen) {
                 ProductoDTO.getProductoDTO().setProducto((Producto) tblProductos.getSelectionModel().getSelectedItem());
                 mostrarImagen();
-                ProductoDTO.getProductoDTO().setProducto(null);
             } else if (event.getSource() == btnBuscar) {
                 tblProductos.getItems().clear();
                 if (tfBuscar.getText().isEmpty()) {
@@ -106,7 +105,6 @@ public class MenuProductosController implements Initializable {
     }
 
     public void mostrarImagen() {
-        if (Imagen == null) {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/org/cristianlima/view/CargarImagenView.fxml"));
                 Imagen = new Stage();
@@ -116,7 +114,6 @@ public class MenuProductosController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
     }
 
     public void cargarLista() {

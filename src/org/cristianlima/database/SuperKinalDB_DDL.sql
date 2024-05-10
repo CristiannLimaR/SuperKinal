@@ -90,7 +90,7 @@ create table Productos(
     precioVentaUnitario decimal(10,2) not null,
     precioVentaMayor decimal(10,2) not null,
     precioCompra decimal(10,2) not null,
-    imagenProducto mediumblob,
+    imagenProducto longblob,
     distribuidorId int not null,
     categoriaProductosId int not null,
     primary key PK_productoId (productoId),
@@ -145,8 +145,7 @@ create table DetalleFactura(
 		references Productos(productoId)
 );
 
-insert into Compras(fechaCompra, totalCompra) values
-('2006-05-12',100);
+
 
 
 

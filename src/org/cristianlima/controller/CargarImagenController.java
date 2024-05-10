@@ -33,6 +33,7 @@ public class CargarImagenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (ProductoDTO.getProductoDTO().getProducto() != null) {
             cargarDatos(ProductoDTO.getProductoDTO().getProducto());
+            ProductoDTO.getProductoDTO().setProducto(null);
         }
     }    
     

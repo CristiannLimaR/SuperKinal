@@ -87,6 +87,14 @@ public class Distribuidor {
     public void setWeb(String web) {
         this.web = web;
     }
+
+    @Override
+    public String toString() {
+        return "Id: " + distribuidorId + " | " +  nombreDistribuidor;
+        
+    }
+    
+    
     
     
 }
