@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -67,8 +68,11 @@ public class MenuCargosController implements Initializable {
             stage.formCargoController(2);
         } else if (event.getSource() == btnEliminar) {
             int carId = ((Cargo) tblCargos.getSelectionModel().getSelectedItem()).getCargoId();
-            eliminarCargo(carId);
-            cargarLista();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+              eliminarCargo(carId);
+                cargarLista();
+            }
+            
         } else if (event.getSource() == btnBuscar) {
             tblCargos.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {

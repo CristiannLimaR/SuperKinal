@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,6 +32,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.ProductoDTO;
 import org.cristianlima.model.Producto;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -77,8 +79,11 @@ public class MenuProductosController implements Initializable {
                 stage.formProductosControllerView(2);
             } else if (event.getSource() == btnEliminar) {
                 int proId = ((Producto) tblProductos.getSelectionModel().getSelectedItem()).getProductoId();
-                eliminarProducto(proId);
-                cargarLista();
+                if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK) {
+                    eliminarProducto(proId);
+                    cargarLista();
+
+                }
             } else if (event.getSource() == btnImagen) {
                 ProductoDTO.getProductoDTO().setProducto((Producto) tblProductos.getSelectionModel().getSelectedItem());
                 mostrarImagen();
@@ -105,15 +110,15 @@ public class MenuProductosController implements Initializable {
     }
 
     public void mostrarImagen() {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/org/cristianlima/view/CargarImagenView.fxml"));
-                Imagen = new Stage();
-                Imagen.setTitle("Imagen");
-                Imagen.setScene(new Scene(root));
-                Imagen.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org/cristianlima/view/CargarImagenView.fxml"));
+            Imagen = new Stage();
+            Imagen.setTitle("Imagen");
+            Imagen.setScene(new Scene(root));
+            Imagen.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void cargarLista() {
@@ -180,6 +185,7 @@ public class MenuProductosController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {

@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.CategoriaProductoDTO;
@@ -64,7 +65,10 @@ public class FormCategoriasController implements Initializable {
                 }
             } else if (op == 2) {
                 if (!tfCategoria.getText().isEmpty() && !tfDescripcion.getText().isEmpty()) {
-                    editarCategoria();
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK){
+                        editarCategoria();
+                        
+                    }
                     CategoriaProductoDTO.getCategoriaProductoDTO().setCategoria(null);
                     stage.menuCategoriaView();
                 }
@@ -116,6 +120,7 @@ public class FormCategoriasController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             e.printStackTrace();
         } finally {
             try {

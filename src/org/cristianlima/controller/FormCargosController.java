@@ -122,6 +122,7 @@ public class FormCargosController implements Initializable {
             statement.execute();
             
         }catch(SQLException e){
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             e.printStackTrace();
         }finally {
             try {

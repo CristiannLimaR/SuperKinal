@@ -35,6 +35,7 @@ import org.cristianlima.model.DetalleFactura;
 import org.cristianlima.model.Empleado;
 import org.cristianlima.model.Producto;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -77,10 +78,16 @@ public class MenuFacturasController implements Initializable {
         if (event.getSource() == btnRegresar) {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
-            if (tfId.getText().isEmpty()) {
-                agregarFactura();
-            } else {
-                agregarDetalle();
+            if (!cmbCliente.getSelectionModel().isEmpty() && !cmbEmpleado.getSelectionModel().isEmpty() && !cmbProducto.getSelectionModel().isEmpty()) {
+                if (tfId.getText().isEmpty()) {
+                    agregarFactura();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                } else {
+                    agregarDetalle();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                }
+            }else{
+                SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
             }
 
             cargarLista();

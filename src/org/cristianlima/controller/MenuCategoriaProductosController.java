@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +27,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.CategoriaProductoDTO;
 import org.cristianlima.model.CategoriaProducto;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -63,13 +65,15 @@ public class MenuCategoriaProductosController implements Initializable {
             cargarLista();
         } else if (event.getSource() == btnAgregar) {
             stage.formCategoriaController(1);
-        } else if(event.getSource() == btnEditar){
+        } else if (event.getSource() == btnEditar) {
             CategoriaProductoDTO.getCategoriaProductoDTO().setCategoria((CategoriaProducto) tblCategorias.getSelectionModel().getSelectedItem());
             stage.formCategoriaController(2);
-        }else if (event.getSource() == btnEliminar) {
+        } else if (event.getSource() == btnEliminar) {
             int catId = ((CategoriaProducto) tblCategorias.getSelectionModel().getSelectedItem()).getCategoriaProductosId();
-            eliminarCategoria(catId);
-            cargarLista();
+            if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK) {
+                eliminarCategoria(catId);
+                cargarLista();
+            }
         } else if (event.getSource() == btnBuscar) {
             tblCategorias.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {
@@ -135,6 +139,7 @@ public class MenuCategoriaProductosController implements Initializable {
             statement.setInt(1, catId);
             statement.execute();
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -148,6 +153,7 @@ public class MenuCategoriaProductosController implements Initializable {
                     conexion.close();
                 }
             } catch (SQLException e) {
+                SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
                 System.out.println(e.getMessage());
             }
         }
@@ -198,5 +204,3 @@ public class MenuCategoriaProductosController implements Initializable {
     }
 
 }
-
-

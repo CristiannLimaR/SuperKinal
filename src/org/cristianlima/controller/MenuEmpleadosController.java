@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +29,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.model.Cargo;
 import org.cristianlima.model.Empleado;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -66,20 +68,39 @@ public class MenuEmpleadosController implements Initializable {
         if (event.getSource() == btnRegresar) {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
-            
             if (tfId.getText().isEmpty()) {
-                agregarEmpleado();
-                cargarDatos();
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty() && ! !cmbEncargado.getSelectionModel().isEmpty()) {
+                    agregarEmpleado();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarDatos();
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+
+                }
+
             } else {
-                editarEmpleado();
-                cargarDatos();
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty() && ! !cmbEncargado.getSelectionModel().isEmpty()) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        editarEmpleado();
+                        cargarDatos();
+                        SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    }
+
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+
+                }
             }
+
         } else if (event.getSource() == btnVaciar) {
             vaciarCampos();
         } else if (event.getSource() == btnEliminar) {
             int empId = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getEmpleadoId();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
             eliminarEmpleado(empId);
             cargarDatos();
+              
+            }
         } else if (event.getSource() == btnBuscar) {
             tblEmpleados.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {
@@ -225,9 +246,9 @@ public class MenuEmpleadosController implements Initializable {
             statement.setString(4, tfEntrada.getText());
             statement.setString(5, tfSalida.getText());
             statement.setInt(6, ((Cargo) cmbCargo.getSelectionModel().getSelectedItem()).getCargoId());
-            if((cmbEncargado.getSelectionModel().getSelectedItem()) == null){
+            if ((cmbEncargado.getSelectionModel().getSelectedItem()) == null) {
                 statement.setNull(7, 0);
-            }else{
+            } else {
                 statement.setInt(7, ((Empleado) cmbEncargado.getSelectionModel().getSelectedItem()).getEmpleadoId());
             }
             statement.execute();
@@ -267,6 +288,7 @@ public class MenuEmpleadosController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -326,6 +348,7 @@ public class MenuEmpleadosController implements Initializable {
             statement.setInt(1, empId);
             statement.execute();
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {

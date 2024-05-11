@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -54,7 +55,6 @@ public class FormProductosController implements Initializable {
     private int op;
     private List<File> files = null;
     InputStream img;
-    FileChooser fileChooser = new FileChooser();
 
     @FXML
     Button btnGuardar, btnSalir;
@@ -98,10 +98,13 @@ public class FormProductosController implements Initializable {
             } else if (op == 2) {
                 if (!tfProducto.getText().isEmpty() && !tfDescripcion.getText().isEmpty() && !tfStock.getText().isEmpty() && !tfPrecioU.getText().isEmpty() && !tfPrecioM.getText().isEmpty() && !tfPrecioC.getText().isEmpty()
                         && cmbDistribuidor.getSelectionModel().getSelectedItem() != null && cmbCategoria.getSelectionModel().getSelectedItem() != null) {
-                    editarProducto();
-                    ProductoDTO.getProductoDTO().setProducto(null);
-                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
-                    stage.menuProductosView();
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        editarProducto();
+                        ProductoDTO.getProductoDTO().setProducto(null);
+                        SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                        stage.menuProductosView();
+                    }
+
                 } else {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
                     ProductoDTO.getProductoDTO().setProducto(null);
@@ -115,7 +118,7 @@ public class FormProductosController implements Initializable {
         Image imagen = null;
         if (blob != null) {
             try {
-               img = blob.getBinaryStream();
+                img = blob.getBinaryStream();
                 imagen = new Image(img);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -147,7 +150,7 @@ public class FormProductosController implements Initializable {
         int index = 0;
         for (int i = 0; i < cmbDistribuidor.getItems().size(); i++) {
             String disCmb = cmbDistribuidor.getItems().get(i).toString();
-            
+
             if (disCmb.equals(distribuidor)) {
                 index = i;
                 break;
@@ -155,8 +158,6 @@ public class FormProductosController implements Initializable {
         }
         return index;
     }
-    
-   
 
     public int obtenerIndexCategoria(String categoria) {
         int index = 0;
@@ -249,6 +250,7 @@ public class FormProductosController implements Initializable {
             statement.execute();
 
         } catch (Exception e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             e.printStackTrace();
         } finally {
             try {

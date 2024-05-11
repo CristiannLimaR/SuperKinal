@@ -64,6 +64,7 @@ public class SuperKinalAlert {
             alert.setContentText("¿Desea confirmar la edición del registro?");
             action = alert.showAndWait();
         }
-        return action;
+        
+    return action;
     }
 }

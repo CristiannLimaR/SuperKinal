@@ -254,8 +254,9 @@ create procedure sp_ListarTicketSoporte()
 begin
 	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus, 
 			concat('Id: ', C.clienteId,'| ',C.nombre, ' ',C.apellido)  AS 'Cliente',
-            TS.facturaId from TicketSoporte TS
-    join Clientes C on TS.clienteId = C.clienteId;
+            concat('Id :' , F.facturaId , 'fecha: ' , F.fecha , 'hora: ' , F.hora) as 'Factura' from TicketSoporte TS
+    join Clientes C on TS.clienteId = C.clienteId
+    join Facturas F on TS.facturaId = F.facturaId;
 end $$
 DELIMITER ;
 
@@ -429,6 +430,8 @@ create procedure sp_editarFacturas(in facId int, in tot decimal(10, 2), in cliId
             where facturaId = facId;
     end $$
 DELIMITER ;
+
+call sp_listarFacturas();
 
 DELIMITER $$
 create procedure sp_asignarTotalFactura(in tot decimal(10,2),factId int)

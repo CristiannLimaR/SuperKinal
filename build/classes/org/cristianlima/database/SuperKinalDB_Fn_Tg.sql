@@ -88,9 +88,6 @@ begin
 end $$
 delimiter ;
 
-
-call sp_listarFacturas();
-call sp_listarDetalleFactura();
 delimiter $$
 create trigger tg_agregarTotalFactura
 after insert on DetalleFactura

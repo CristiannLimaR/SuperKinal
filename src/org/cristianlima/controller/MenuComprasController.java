@@ -81,7 +81,6 @@ public class MenuComprasController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
 
                 }
-
             } else {
                 if (!cmbProducto.getSelectionModel().isEmpty() && !tfCantidad.getText().isEmpty()) {
                     agregarDetalle();
@@ -243,32 +242,7 @@ public class MenuComprasController implements Initializable {
         }
     }
 
-    public void eliminarCompra(int comId) {
-        try {
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_eliminarCompra(?)";
-            statement = conexion.prepareStatement(sql);
-            statement.setInt(1, comId);
-            statement.execute();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+    
 
     public void editarCompra() {
         try {
@@ -290,6 +264,7 @@ public class MenuComprasController implements Initializable {
                     conexion.close();
                 }
             } catch (SQLException e) {
+                SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
                 e.printStackTrace();
             }
         }

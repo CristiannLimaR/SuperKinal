@@ -84,6 +84,7 @@ public class FormClientesController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {

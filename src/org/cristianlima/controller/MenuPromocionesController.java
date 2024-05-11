@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.model.Producto;
 import org.cristianlima.model.Promocion;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -77,18 +79,34 @@ public class MenuPromocionesController implements Initializable {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
             if (tfId.getText().isEmpty()) {
-                agregarPromocion();
-                cargarLista();
+                if (!tfPrecio.getText().isEmpty() && !taDescripcion.getText().isEmpty() && dpInicio.getValue() != null && dpFinal.getValue() != null) {
+                    agregarPromocion();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarLista();
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                }
+
             } else {
-                editarPromocion();
-                cargarLista();
+                if (!tfPrecio.getText().isEmpty() && !taDescripcion.getText().isEmpty() && dpInicio.getValue() != null && dpFinal.getValue() != null) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        editarPromocion();
+                        cargarLista();
+                    }
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                }
+
             }
         } else if (event.getSource() == btnVaciar) {
             vaciarCampos();
         } else if (event.getSource() == btnEliminar) {
             int promId = ((Promocion) tblPromociones.getSelectionModel().getSelectedItem()).getPromocionId();
-            eliminarPromocion(promId);
-            cargarLista();
+            if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK) {
+                eliminarPromocion(promId);
+                cargarLista();
+
+            }
         } else if (event.getSource() == btnBuscar) {
             tblPromociones.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {
@@ -233,6 +251,7 @@ public class MenuPromocionesController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             e.printStackTrace();
         } finally {
             try {
@@ -260,6 +279,7 @@ public class MenuPromocionesController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             e.printStackTrace();
         } finally {
             try {
