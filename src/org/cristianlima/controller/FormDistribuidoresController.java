@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.DistribuidorDTO;
@@ -64,9 +65,12 @@ public class FormDistribuidoresController implements Initializable {
                 }
             } else if (op == 2) {
                 if (!tfNombre.getText().isEmpty() && !tfDireccion.getText().isEmpty() && !tfTelefono.getText().isEmpty() && !tfNit.getText().isEmpty()) {
-                    editarDistribuidor();
-                    DistribuidorDTO.getDistribuidorDTO().setDistribuidor(null);
-                    stage.menuDistribuidoresView();
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK){
+                        editarDistribuidor();
+                        DistribuidorDTO.getDistribuidorDTO().setDistribuidor(null);
+                        stage.menuDistribuidoresView();
+                    }
+                    
                 } else {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
                 }

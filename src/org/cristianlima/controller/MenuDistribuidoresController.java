@@ -84,7 +84,7 @@ public class MenuDistribuidoresController implements Initializable {
             if (tfBuscar.getText().isEmpty()) {
                 cargarLista();
             } else {
-                tblDistribuidores.setItems(listarDistribuidores());
+                tblDistribuidores.getItems().add(buscarDistribuidor());
                 colDistribuidorId.setCellValueFactory(new PropertyValueFactory<Distribuidor, Integer>("distribuidorId"));
                 colNombre.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("nombreDistribuidor"));
                 colWeb.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("web"));

@@ -69,7 +69,7 @@ public class MenuEmpleadosController implements Initializable {
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
             if (tfId.getText().isEmpty()) {
-                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty() && ! !cmbEncargado.getSelectionModel().isEmpty()) {
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty()) {
                     agregarEmpleado();
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
                     cargarDatos();
@@ -79,7 +79,7 @@ public class MenuEmpleadosController implements Initializable {
                 }
 
             } else {
-                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty() && ! !cmbEncargado.getSelectionModel().isEmpty()) {
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty()) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         editarEmpleado();
                         cargarDatos();

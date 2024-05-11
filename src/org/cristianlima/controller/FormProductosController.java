@@ -5,6 +5,8 @@
  */
 package org.cristianlima.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -189,6 +192,8 @@ public class FormProductosController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    
 
     public void agregarProducto() {
         try {
@@ -204,7 +209,7 @@ public class FormProductosController implements Initializable {
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(7, null);
             } else {
-                InputStream img = new FileInputStream(files.get(0));
+                img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(7, img);
             }
             statement.setInt(8, ((Distribuidor) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
@@ -242,7 +247,8 @@ public class FormProductosController implements Initializable {
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(8, null);
             } else {
-                img = new FileInputStream(files.get(0));
+                byte[] image = imagenAByte(imgCargar.getImage());
+                img = new ByteArrayInputStream(image);
                 statement.setBinaryStream(8, img);
             }
             statement.setInt(9, ((Distribuidor) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
@@ -338,6 +344,19 @@ public class FormProductosController implements Initializable {
         }
         return FXCollections.observableList(categorias);
 
+    }
+    
+    public byte[] imagenAByte(Image image) {
+        if (image != null) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                javax.imageio.ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", outputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return outputStream.toByteArray();
+        }
+        return null;
     }
 
     public Main getStage() {

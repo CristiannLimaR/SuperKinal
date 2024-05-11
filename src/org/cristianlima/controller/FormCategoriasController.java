@@ -87,7 +87,7 @@ public class FormCategoriasController implements Initializable {
     public void agregarCategoria() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarCategoriaProductos(?,?)";
+            String sql = "call sp_agregarCategoriaProducto(?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfCategoria.getText());
             statement.setString(2, tfDescripcion.getText());
@@ -112,7 +112,7 @@ public class FormCategoriasController implements Initializable {
     public void editarCategoria() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarCategoriaProductos(?,?,?)";
+            String sql = "call sp_editarCategoriaProducto(?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfId.getText()));
             statement.setString(2, tfCategoria.getText());

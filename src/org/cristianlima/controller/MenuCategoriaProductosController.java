@@ -79,8 +79,8 @@ public class MenuCategoriaProductosController implements Initializable {
             if (tfBuscar.getText().isEmpty()) {
                 cargarLista();
             } else {
-                tblCategorias.setItems(listarCategorias());
-                colCategoriaId.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, Integer>("categoriaId"));
+                tblCategorias.getItems().add(buscarCategoria());
+                colCategoriaId.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, Integer>("categoriaProductosId"));
                 colCategoria.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, String>("nombreCategoria"));
                 colDescripcion.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, String>("descripcionCategoria"));
             }
@@ -134,7 +134,7 @@ public class MenuCategoriaProductosController implements Initializable {
     public void eliminarCategoria(int catId) {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_eliminarCategoriaProductos(?)";
+            String sql = "call sp_eliminarCategoriaProducto(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, catId);
             statement.execute();
@@ -169,9 +169,9 @@ public class MenuCategoriaProductosController implements Initializable {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int catPId = resultSet.getInt("categoriaProductoId");
+                int catPId = resultSet.getInt("categoriaProductosId");
                 String nombreCat = resultSet.getString("nombreCategoria");
-                String desCat = resultSet.getString("dscripcionCategoria");
+                String desCat = resultSet.getString("descripcionCategoria");
                 categoria = (new CategoriaProducto(catPId, nombreCat, desCat));
             }
         } catch (SQLException e) {

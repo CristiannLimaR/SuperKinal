@@ -97,6 +97,7 @@ public class MenuTicketSoporteController implements Initializable {
         taDescripcion.clear();
         cmbEstatus.getSelectionModel().clearSelection();
         cmbClientes.getSelectionModel().clearSelection();
+        cmbFacturas.getSelectionModel().clearSelection();
     }
 
     //Cargar datps a el tableView
