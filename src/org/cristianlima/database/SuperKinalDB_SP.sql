@@ -136,7 +136,7 @@ create procedure sp_editarDistribuidor(dirId int, nomDis varchar(30), dirDis var
 DELIMITER ;
 -- ---------------------------------------------------CATEGORIA PRODUCTOS --------------------------------------
 DELIMITER $$
-create procedure sp_agregarCategoriaProductos(nomCat varchar(30),desCat varchar(100))
+create procedure sp_agregarCategoriaProducto(nomCat varchar(30),desCat varchar(100))
 	begin 
 		insert into CategoriaProductos(nombreCategoria,descripcionCategoria) values
 			(nomCat,desCat);
@@ -151,7 +151,7 @@ create procedure sp_listarCategoriaProductos()
 DELIMITER ;
 
 DELIMITER $$
-create procedure sp_buscarCategoriaProductos(catProId int)
+create procedure sp_buscarCategoriaProducto(catProId int)
 	begin
 		select * from CategoriaProductos 
         where catProId = categoriaProductosId;
@@ -160,7 +160,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-create procedure sp_eliminarCategoriaProductos(catProId int)
+create procedure sp_eliminarCategoriaProducto(catProId int)
 	begin 
 		delete from CategoriaProductos
         where catProId = categoriaProductosId;
@@ -168,7 +168,7 @@ create procedure sp_eliminarCategoriaProductos(catProId int)
 DELIMITER ;
 
 DELIMITER $$
-create procedure sp_editarCategoriaProductos(catProId int,nomCat varchar(30),desCat varchar(100) )
+create procedure sp_editarCategoriaProducto(catProId int,nomCat varchar(30),desCat varchar(100) )
 	begin
 		update CategoriaProductos set
 		nombreCategoria = nomCat,
@@ -330,11 +330,10 @@ create procedure sp_buscarEmpleado(in empId int)
         Concat('Id: ', E2.empleadoId ,  ' | ' , E2.nombreEmpleado,' ', E2.apellidoEmpleado) as 'Encargado' from Empleados E1
         join Cargos C on E1.cargoId = C.cargoId
         left join Empleados E2 on E1.encargadoId = E2.empleadoId
-			where empleadoId = empId;
+			where E1.empleadoId = empId;
     end $$
 DELIMITER ;
 
-call sp_listarEmpleados();
  
  
 DELIMITER $$
@@ -431,7 +430,6 @@ create procedure sp_editarFacturas(in facId int, in tot decimal(10, 2), in cliId
     end $$
 DELIMITER ;
 
-call sp_listarFacturas();
 
 DELIMITER $$
 create procedure sp_asignarTotalFactura(in tot decimal(10,2),factId int)
@@ -465,7 +463,6 @@ create procedure sp_listarPromociones()
     end $$
 DELIMITER ;
  
-  call sp_listarPromociones();
  
 
 DELIMITER $$
@@ -478,7 +475,6 @@ create procedure sp_buscarPromocion(in promoId int)
     end $$
 DELIMITER ;
  
- select * from promociones;
 
 DELIMITER $$
 create procedure sp_eliminarPromocion(in promoId int)
@@ -693,8 +689,3 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
 			where detalleCompraId = detCId;
     end $$
 DELIMITER ;
-call sp_listarProductos();
-call sp_editarCompra(1,'2023-05-09');
-call sp_listarCompras();
-call sp_listarDetalleFactura();
-call sp_editarProducto(1,'Refrigerador','hola',1,1,1,1,null,2,1);

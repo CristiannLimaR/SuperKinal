@@ -21,7 +21,7 @@
             <Image url="@../image/MenuFacturas.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfId" editable="false" layoutX="79.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" promptText="CompraId" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <TextField fx:id="tfId" editable="false" layoutX="79.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" promptText="FacturaId" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbProducto" layoutX="67.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <TableView fx:id="tblFacturas" layoutX="50.0" layoutY="375.0" onMouseClicked="#cargarDatosEditar" prefHeight="347.0" prefWidth="1090.0">
          <columns>
@@ -37,7 +37,7 @@
          </columns>
       </TableView>
       <Button fx:id="btnRegresar" alignment="CENTER" layoutX="1174.0" layoutY="679.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="36.0" prefWidth="180.0" style="-fx-background-color: #F2133C; -fx-background-radius: 20;" text="Regresar" />
-      <DatePicker fx:id="dpFecha" layoutX="600.0" layoutY="163.0" prefHeight="40.0" prefWidth="199.0" />
+      <DatePicker fx:id="dpFecha" editable="false" layoutX="600.0" layoutY="163.0" prefHeight="40.0" prefWidth="199.0" />
       <TextField fx:id="tfTotal" editable="false" layoutX="340.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" promptText="Total" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <Button fx:id="btnGuardar" alignment="CENTER" layoutX="1059.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="32.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" textFill="WHITE">
          <font>
@@ -89,7 +89,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="tfHora" layoutX="847.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" promptText="Cantidad" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <TextField fx:id="tfHora" editable="false" layoutX="847.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbCliente" layoutX="340.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbEmpleado" layoutX="603.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
    </children>
