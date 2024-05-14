@@ -18,7 +18,7 @@
             <Image url="@../image/Menu%20Tickets.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfTicketId" layoutX="62.0" layoutY="184.0" prefHeight="40.0" prefWidth="173.0" promptText="Ticket Id" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <TextField fx:id="tfTicketId" editable="false" layoutX="62.0" layoutY="184.0" prefHeight="40.0" prefWidth="173.0" promptText="Ticket Id" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbEstatus" layoutX="62.0" layoutY="520.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbFacturas" layoutX="691.0" layoutY="184.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbClientes" layoutX="411.0" layoutY="184.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />

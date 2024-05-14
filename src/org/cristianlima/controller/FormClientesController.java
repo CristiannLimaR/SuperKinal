@@ -14,17 +14,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.ClienteDTO;
 import org.cristianlima.model.Cliente;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  *
  * @author cristian
  */
-public class formClientesController implements Initializable {
+public class FormClientesController implements Initializable {
 
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
@@ -65,17 +67,6 @@ public class formClientesController implements Initializable {
             statement.execute();
         } catch (SQLException e) {
             e.getMessage();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -93,6 +84,7 @@ public class formClientesController implements Initializable {
             statement.execute();
 
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -111,13 +103,25 @@ public class formClientesController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnGuardar) {
             if (op == 1) {
-                agregarCliente();
-                stage.menuClientesView();
+                if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfDireccion.getText().equals("")) {
+                    agregarCliente();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    stage.menuClientesView();
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombre.requestFocus();
+                    return;
+                }
             } else if (op == 2) {
-                editarCliente();
-                ClienteDTO.getClienteDTO().setCliente(null);
-                
-                stage.menuClientesView();
+                if (!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        editarCliente();
+                        ClienteDTO.getClienteDTO().setCliente(null);
+                        stage.menuClientesView();
+                    }
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                }
             }
         } else if (event.getSource() == btnSalir) {
             stage.menuClientesView();

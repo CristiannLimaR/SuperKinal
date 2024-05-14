@@ -6,8 +6,6 @@
 package org.cristianlima.system;
 
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.HashSet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,10 +14,22 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import org.cristianlima.controller.formClientesController;
+import org.cristianlima.controller.MenuCargosController;
+import org.cristianlima.controller.MenuCategoriaProductosController;
+import org.cristianlima.controller.FormClientesController;
 import org.cristianlima.controller.MenuClientesController;
+import org.cristianlima.controller.MenuComprasController;
 import org.cristianlima.controller.MenuPrincipalController;
 import org.cristianlima.controller.MenuTicketSoporteController;
+import org.cristianlima.controller.FormCargosController;
+import org.cristianlima.controller.FormCategoriasController;
+import org.cristianlima.controller.FormDistribuidoresController;
+import org.cristianlima.controller.FormProductosController;
+import org.cristianlima.controller.MenuDistribuidoresController;
+import org.cristianlima.controller.MenuEmpleadosController;
+import org.cristianlima.controller.MenuFacturasController;
+import org.cristianlima.controller.MenuProductosController;
+import org.cristianlima.controller.MenuPromocionesController;
 
 /**
  *
@@ -77,7 +87,7 @@ public class Main extends Application {
     
     public void formClienteController(int op){
         try{
-            formClientesController formClientesView = (formClientesController) switchScene("MenuAgregarClienteView.fxml",500,700);
+            FormClientesController formClientesView = (FormClientesController) switchScene("MenuAgregarClienteView.fxml",500,700);
             formClientesView.setOp(op);
             formClientesView.setStage(this);
         }catch(Exception e){
@@ -94,7 +104,118 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
+    
+    public void menuCargosView(){
+        try{
+            MenuCargosController menuCargosView = (MenuCargosController) switchScene("MenuCargosView.fxml",1200,750);
+            menuCargosView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void formCargoController(int op){
+        try{
+            FormCargosController formCargosView = (FormCargosController) switchScene("FormCargosView.fxml",500,500);
+            formCargosView.setOp(op);
+            formCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuCategoriaView(){
+        try{
+            MenuCategoriaProductosController menuCategoria = (MenuCategoriaProductosController) switchScene("MenuCategoriaProductosView.fxml",1200,750);
+            menuCategoria.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void formCategoriaController(int op){
+        try{
+            FormCategoriasController formCategoriaView = (FormCategoriasController) switchScene("FormCategoriasView.fxml",500,500);
+            formCategoriaView.setOp(op);
+            formCategoriaView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuComprasView(){
+        try{
+           MenuComprasController menuComprasView = (MenuComprasController) switchScene("MenuComprasView.fxml",1300,750);
+           menuComprasView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuDistribuidoresView(){
+        try{
+            MenuDistribuidoresController menuDistribuidoresView = (MenuDistribuidoresController) switchScene("MenuDistribuidoresView.fxml",1200,750);
+            menuDistribuidoresView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void formDistribuidorControllerView(int op){
+        try{
+            FormDistribuidoresController formDistribuidoresView = (FormDistribuidoresController) switchScene("FormDistribuidoresView.fxml",500,700);
+            formDistribuidoresView.setOp(op);
+            formDistribuidoresView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuEmpleadosView(){
+        try{
+            MenuEmpleadosController menuEmpleadoView = (MenuEmpleadosController)switchScene("MenuEmpleadosView.fxml",1400,750);
+            menuEmpleadoView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuProductosView(){
+        try{
+            MenuProductosController menuProductoView = (MenuProductosController)switchScene("MenuProductosView.fxml",1400,750);
+            menuProductoView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void formProductosControllerView(int op){
+        try{
+            FormProductosController formProductosView = (FormProductosController) switchScene("FormProductosView.fxml",600,850);
+            formProductosView.setOp(op);
+            formProductosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuPromocionesView(){
+        try{
+            MenuPromocionesController menuPromocionView = (MenuPromocionesController )switchScene("MenuPromocionesView.fxml",1300,750);
+            menuPromocionView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuFacturasView(){
+        try{
+            MenuFacturasController menuFacturaView = (MenuFacturasController)switchScene("MenuFacturasView.fxml",1400,750);
+            menuFacturaView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * @param args the command line arguments
      */

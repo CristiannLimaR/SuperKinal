@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +27,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.ClienteDTO;
 import org.cristianlima.model.Cliente;
 import org.cristianlima.system.Main;
+import org.cristianlima.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -117,8 +119,11 @@ public class MenuClientesController implements Initializable {
             stage.formClienteController(2);
         } else if (event.getSource() == btnEliminar) {
             int cliId = ((Cliente) tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
-            eliminarCliente(cliId);
-            cargarLista();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+              eliminarCliente(cliId);
+                cargarLista();  
+            }
+            
         } else if (event.getSource() == btnBuscar) {
             tblClientes.getItems().clear();
             if (tfBuscar.getText().isEmpty()) {
@@ -144,6 +149,7 @@ public class MenuClientesController implements Initializable {
             statement.setInt(1, cliId);
             statement.execute();
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -157,6 +163,7 @@ public class MenuClientesController implements Initializable {
                     conexion.close();
                 }
             } catch (SQLException e) {
+                
                 System.out.println(e.getMessage());
             }
         }
@@ -182,7 +189,19 @@ public class MenuClientesController implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return cliente;
     }

@@ -10,6 +10,41 @@ create table Cargos(
     primary key PK_cargoId (cargoId)
 );
 
+create table Clientes(
+	clienteId int not null auto_increment,
+    nombre varchar(30) not null,
+    apellido varchar(30) not null,
+    telefono varchar(30),
+    direccion varchar(150) not null,
+    nit varchar(30) not null,
+    primary key PK_clienteId (clienteId)
+);
+
+create table CategoriaProductos(
+	categoriaProductosId int not null auto_increment,
+    nombreCategoria varchar(30) not null,
+    descripcionCategoria varchar(100) not null,
+    primary key PK_categoriaProductosId (categoriaProductosId)
+);
+
+
+create table Distribuidores(
+	distribuidorId int not null auto_increment,
+    nombreDistribuidor varchar(30),
+    direccionDistribuidor varchar(200),
+    nitDistribuidor varchar(15),
+    telefonoDistribuidor varchar(15),
+    web varchar(50),
+    primary key PK_distribuidorId (distribuidorId)
+);
+
+create table Compras(
+	compraId int not null auto_increment,
+    fechaCompra date not null,
+    totalCompra decimal(10,2),
+    primary key PK_compraId (compraId)
+);
+
 create table Empleados(
 	empleadoId int not null auto_increment,
     nombreEmpleado varchar(30) not null,
@@ -26,16 +61,6 @@ create table Empleados(
 		references Empleados(empleadoId)
 );
 
-
-create table Clientes(
-	clienteId int not null auto_increment,
-    nombre varchar(30) not null,
-    apellido varchar(30) not null,
-    telefono varchar(30),
-    direccion varchar(150) not null,
-    nit varchar(30) not null,
-    primary key PK_clienteId (clienteId)
-);
 
 create table Facturas(
 	facturaId int not null auto_increment,
@@ -65,22 +90,6 @@ create table TicketSoporte(
 	
 );
 
-create table Distribuidores(
-	distribuidorId int not null auto_increment,
-    nombreDistribuidor varchar(30),
-    direccionDistribuidor varchar(200),
-    nitDistribuidor varchar(15),
-    telefonoDistribuidor varchar(15),
-    web varchar(50),
-    primary key PK_distribuidorId (distribuidorId)
-);
-
-create table CategoriaProductos(
-	categoriaProductosId int not null auto_increment,
-    nombreCategoria varchar(30) not null,
-    descripcionCategoria varchar(100) not null,
-    primary key PK_categoriaProductosId (categoriaProductosId)
-);
 
 create table Productos(
 	productoId int not null auto_increment,
@@ -90,7 +99,7 @@ create table Productos(
     precioVentaUnitario decimal(10,2) not null,
     precioVentaMayor decimal(10,2) not null,
     precioCompra decimal(10,2) not null,
-    imagenProducto BLOB,
+    imagenProducto longblob,
     distribuidorId int not null,
     categoriaProductosId int not null,
     primary key PK_productoId (productoId),
@@ -99,6 +108,8 @@ create table Productos(
 	constraint FK_Productos_CategoriaProductos foreign key (categoriaProductosId)
 		references CategoriaProductos(categoriaProductosId)
 );
+
+
 
 create table Promociones(
 	promocionId int not null auto_increment,
@@ -112,13 +123,8 @@ create table Promociones(
 		references Productos(productoId)
 );
 
-create table Compras(
-	compraId int not null,
-    fechaCompra date not null,
-    totalCompra decimal(10,2),
-    primary key PK_compraId (compraId)
 
-);
+
 
 create table DetalleCompra(
 	detalleCompraId int not null auto_increment,
@@ -142,5 +148,9 @@ create table DetalleFactura(
 	constraint FK_DetalleFactura_Productos foreign key (productoId)
 		references Productos(productoId)
 );
+
+
+
+
 
 
