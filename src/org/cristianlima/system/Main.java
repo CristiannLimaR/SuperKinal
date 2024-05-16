@@ -45,7 +45,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         stage.setTitle("SuperKinal");
-        menuPrincipalView();
+        // login view 
         stage.show();
 
     }
@@ -171,9 +171,10 @@ public class Main extends Application {
         }
     }
     
-    public void menuEmpleadosView(){
+    public void menuEmpleadosView(int op){
         try{
             MenuEmpleadosController menuEmpleadoView = (MenuEmpleadosController)switchScene("MenuEmpleadosView.fxml",1400,750);
+            menuEmpleadoView.setOp(op);
             menuEmpleadoView.setStage(this);
         }catch(Exception e){
             e.printStackTrace();
@@ -214,6 +215,14 @@ public class Main extends Application {
             menuFacturaView.setStage(this);
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    
+    public void loginView(){
+        try{
+            
+        }catch(Exception e){
+            
         }
     }
     /**

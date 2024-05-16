@@ -39,6 +39,7 @@ import org.cristianlima.utils.SuperKinalAlert;
 public class MenuEmpleadosController implements Initializable {
 
     private Main stage;
+    private int op;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
@@ -73,6 +74,8 @@ public class MenuEmpleadosController implements Initializable {
                     agregarEmpleado();
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
                     cargarDatos();
+                    if(op == 2){
+                    }
                 } else {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
 
@@ -169,8 +172,6 @@ public class MenuEmpleadosController implements Initializable {
         for (int i = 0; i < cmbCargo.getItems().size(); i++) {
             String cargoCmb = cmbCargo.getItems().get(i).toString();
             String cargoTbl = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getCargo();
-            System.out.println(cargoCmb);
-            System.out.println(cargoTbl);
             if (cargoCmb.equals(cargoTbl)) {
                 index = i;
                 break;
@@ -184,8 +185,6 @@ public class MenuEmpleadosController implements Initializable {
         for (int i = 0; i < cmbEncargado.getItems().size(); i++) {
             String encargadoCmb = cmbEncargado.getItems().get(i).toString();
             String encargadoTbl = ((Empleado) tblEmpleados.getSelectionModel().getSelectedItem()).getEncargado();
-            System.out.println(encargadoCmb);
-            System.out.println(encargadoTbl);
             if (encargadoCmb.equals(encargadoTbl)) {
                 index = i;
                 break;
@@ -413,5 +412,15 @@ public class MenuEmpleadosController implements Initializable {
     public void setStage(Main stage) {
         this.stage = stage;
     }
+
+    public int getOp() {
+        return op;
+    }
+
+    public void setOp(int op) {
+        this.op = op;
+    }
+    
+    
 
 }

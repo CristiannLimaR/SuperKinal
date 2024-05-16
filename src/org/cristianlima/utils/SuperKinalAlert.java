@@ -45,6 +45,18 @@ public class SuperKinalAlert {
             alert.setHeaderText("Error al eliminar o editar");
             alert.setContentText("No puedes eliminar o editar este registro porque esta conectado a otra tabla ");
             alert.showAndWait();
+        }else if(code  == 602){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Usuario incorrecto");
+            alert.setHeaderText("Usuario incorrecto");
+            alert.setContentText("Verifique su usuario");
+            alert.showAndWait();
+        }else if(code  == 005){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Contraseña incorrecta");
+            alert.setHeaderText("Contraseña incorrecto");
+            alert.setContentText("Verifique su contraseña");
+            alert.showAndWait();
         }
     }
         

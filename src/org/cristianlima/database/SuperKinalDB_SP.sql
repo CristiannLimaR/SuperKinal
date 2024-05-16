@@ -689,3 +689,30 @@ create procedure sp_eliminarDetalleCompra(in detCId int)
 			where detalleCompraId = detCId;
     end $$
 DELIMITER ;
+
+
+delimiter $$
+create procedure sp_agregarUsuario(us varchar(40), con varchar(100),nivAccId int, empId int)
+begin 
+	insert into Usuarios(usuario,pass,nivelAccesoId,empleadoId) values
+		(us,con,nivAccId,empId);
+end$$
+delimiter ;
+
+delimiter $$
+create procedure sp_buscarUsuario(us varchar(30))
+	begin 	
+		select * from Usuarios
+			where usuario = us;
+	end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_listarNivelAcceso()
+	begin
+    select * from NivelesAcceso;
+    end $$
+delimiter ;
+
+call sp_listarNivelAcceso();
+
