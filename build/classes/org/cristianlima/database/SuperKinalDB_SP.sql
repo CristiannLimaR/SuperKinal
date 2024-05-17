@@ -699,11 +699,20 @@ begin
 end$$
 delimiter ;
 
+delimiter $$
+create procedure sp_buscarUsuario(us varchar(30))
+	begin 	
+		select * from Usuarios
+			where usuario = us;
+	end $$
+delimiter ;
 
-call sp_agregarUsuario('Criss','1234',1,2);
+delimiter $$
+create procedure sp_listarNivelAcceso()
+	begin
+    select * from NivelesAcceso;
+    end $$
+delimiter ;
 
-select * from usuarios;
-select * from Empleados;
-select * from cargos;
+call sp_listarNivelAcceso();
 
-select * from nivelesAcceso;

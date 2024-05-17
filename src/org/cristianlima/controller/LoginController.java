@@ -52,7 +52,6 @@ public class LoginController implements Initializable {
         if (event.getSource() == btnIniciar) {
             Usuario user = buscarUsuario();
             if (op == 0) {
-                
                 if (user != null) {
                     if (PasswordUtils.getInstance().checkPassword(tfPassword.getText(), user.getContrasenia())) {
                         if (user.getNivelAccesoId() == 1) {
@@ -75,7 +74,7 @@ public class LoginController implements Initializable {
             }
 
         } else if (event.getSource() == btnRegistrar) {
-            // form usuariowfz
+            stage.formUserView();
         }
     }
 
@@ -90,6 +89,7 @@ public class LoginController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_buscarUsuario(?)";
             statement = conexion.prepareStatement(sql);
+            statement.setString(1, tfUser.getText());
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int usuarioId = resultSet.getInt("usuarioId");
@@ -107,4 +107,21 @@ public class LoginController implements Initializable {
         }
         return usuario;
     }
+
+    public Main getStage() {
+        return stage;
+    }
+
+    public void setStage(Main stage) {
+        this.stage = stage;
+    }
+
+    public int getOp() {
+        return op;
+    }
+
+    public void setOp(int op) {
+        this.op = op;
+    }
+    
 }

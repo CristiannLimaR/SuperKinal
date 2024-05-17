@@ -165,6 +165,14 @@ public class FormUserController implements Initializable {
         }
         return FXCollections.observableList(empleados);
     }
+
+    public Main getStage() {
+        return stage;
+    }
+
+    public void setStage(Main stage) {
+        this.stage = stage;
+    }
     
     
     

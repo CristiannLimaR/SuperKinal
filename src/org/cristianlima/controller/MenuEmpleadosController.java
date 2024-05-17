@@ -75,6 +75,7 @@ public class MenuEmpleadosController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
                     cargarDatos();
                     if(op == 2){
+                        stage.formUserView();
                     }
                 } else {
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(400);

@@ -25,6 +25,8 @@ import org.cristianlima.controller.FormCargosController;
 import org.cristianlima.controller.FormCategoriasController;
 import org.cristianlima.controller.FormDistribuidoresController;
 import org.cristianlima.controller.FormProductosController;
+import org.cristianlima.controller.FormUserController;
+import org.cristianlima.controller.LoginController;
 import org.cristianlima.controller.MenuDistribuidoresController;
 import org.cristianlima.controller.MenuEmpleadosController;
 import org.cristianlima.controller.MenuFacturasController;
@@ -45,7 +47,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         stage.setTitle("SuperKinal");
-        // login view 
+        loginView();
         stage.show();
 
     }
@@ -220,9 +222,19 @@ public class Main extends Application {
     
     public void loginView(){
         try{
-            
+            LoginController loginView = (LoginController)switchScene("LoginView.fxml",450,800);
+            loginView.setStage(this);
         }catch(Exception e){
-            
+            e.printStackTrace();
+        }
+    }
+    
+    public void formUserView(){
+        try{
+            FormUserController userView= (FormUserController)switchScene("FormUserView.fxml",450,800);
+            userView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
     /**
