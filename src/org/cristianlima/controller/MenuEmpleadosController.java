@@ -67,7 +67,11 @@ public class MenuEmpleadosController implements Initializable {
 
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
-            stage.menuPrincipalView();
+            if(op == 2){
+                stage.formUserView();
+            }else{
+                stage.menuPrincipalView();
+            }
         } else if (event.getSource() == btnGuardar) {
             if (tfId.getText().isEmpty()) {
                 if (!tfNombre.getText().isEmpty() && !tfApellido.getText().isEmpty() && !tfSueldo.getText().isEmpty() && !tfEntrada.getText().isEmpty() && !tfSalida.getText().isEmpty() && !cmbCargo.getSelectionModel().isEmpty()) {

@@ -699,6 +699,7 @@ begin
 end$$
 delimiter ;
 
+
 delimiter $$
 create procedure sp_buscarUsuario(us varchar(30))
 	begin 	
@@ -713,6 +714,8 @@ create procedure sp_listarNivelAcceso()
     select * from NivelesAcceso;
     end $$
 delimiter ;
+
+select * from empleados;
 
 call sp_listarNivelAcceso();
 

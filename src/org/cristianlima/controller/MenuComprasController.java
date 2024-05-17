@@ -47,7 +47,7 @@ public class MenuComprasController implements Initializable {
     private static ResultSet resultSet = null;
 
     @FXML
-    Button btnRegresar, btnAgregar, btnBuscar, btnGuardar, btnVaciar, btnListar, btnEditar;
+    Button btnRegresar, btnAgregar, btnBuscar, btnGuardar, btnVaciar, btnListar;
     @FXML
     TableView tblCompras;
 
@@ -106,12 +106,7 @@ public class MenuComprasController implements Initializable {
             vaciarCampos();
         } else if (event.getSource() == btnListar) {
             cargarLista();
-        } else if (event.getSource() == btnEditar) {
-            if (!tfId.getText().isEmpty()) {
-                editarCompra();
-            }
-            cargarLista();
-        }
+        } 
     }
 
     public void cargarLista() {

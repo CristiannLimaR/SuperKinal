@@ -170,7 +170,7 @@ public class MenuCargosController implements Initializable {
             statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
             resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
+            if(resultSet.next()) {
                 int cargoId = resultSet.getInt("cargoId");
                 String nombreCargo = resultSet.getString("nombreCargo");
                 String descripcion = resultSet.getString("descripcionCargo");

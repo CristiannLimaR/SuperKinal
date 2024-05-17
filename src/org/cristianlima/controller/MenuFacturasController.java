@@ -56,7 +56,7 @@ public class MenuFacturasController implements Initializable {
     TableColumn colId, colFecha, colHora, colProducto, colPrecios, colCliente, colEmpleado, colTotal;
 
     @FXML
-    Button btnGuardar, btnListar, btnBuscar, btnVaciar, btnEditar, btnRegresar;
+    Button btnGuardar, btnListar, btnBuscar, btnVaciar, btnRegresar;
 
     @FXML
     TextField tfId, tfTotal, tfBuscar, tfHora;

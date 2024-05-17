@@ -45,7 +45,7 @@ public class FormUserController implements Initializable {
     ComboBox cmbEmpleado, cmbAcceso;
     
     @FXML
-    Button btnRegistrar, btnEmpleado;
+    Button btnRegistrar, btnEmpleado, btnRegresar;
     
     @FXML
     public void handleButtonAction(ActionEvent event){
@@ -54,6 +54,8 @@ public class FormUserController implements Initializable {
             stage.loginView();
         }else if(event.getSource() == btnEmpleado){
            stage.menuEmpleadosView(2);
+        }else if(event.getSource() == btnRegresar){
+            stage.loginView();
         }
     }
     
