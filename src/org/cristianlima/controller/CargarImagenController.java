@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -36,6 +37,7 @@ public class CargarImagenController implements Initializable {
             ProductoDTO.getProductoDTO().setProducto(null);
         }
     }    
+    
     
     
     

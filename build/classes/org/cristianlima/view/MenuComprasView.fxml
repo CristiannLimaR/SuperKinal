@@ -23,7 +23,7 @@
       </ImageView>
       <TextField fx:id="tfId" editable="false" layoutX="96.0" layoutY="194.0" prefHeight="40.0" prefWidth="173.0" promptText="CompraId" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbProducto" layoutX="85.0" layoutY="296.0" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <TableView fx:id="tblCompras" layoutX="111.0" layoutY="377.0" onMouseClicked="#cargarDatosEditar" prefHeight="347.0" prefWidth="800.0">
+      <TableView fx:id="tblCompras" layoutX="111.0" layoutY="377.0" prefHeight="347.0" prefWidth="800.0">
          <columns>
             <TableColumn fx:id="colId" text="CompraId" />
             <TableColumn fx:id="colFecha" prefWidth="160.0" text="Fecha" />
@@ -64,12 +64,12 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnEditar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Editar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="btnCompras" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Compras Antiguas" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnVaciar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Vaciar" textFill="WHITE" GridPane.halignment="CENTER">
+            <Button fx:id="btnNueva" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Nueva" textFill="WHITE" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>

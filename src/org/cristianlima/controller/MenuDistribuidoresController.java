@@ -103,6 +103,7 @@ public class MenuDistribuidoresController implements Initializable {
         colTelefono.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("telefonoDistribuidor"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("direccionDistribuidor"));
         colNit.setCellValueFactory(new PropertyValueFactory<Distribuidor, String>("nitDistribuidor"));
+        tblDistribuidores.getSortOrder().add(colDistribuidorId);
     }
 
     public ObservableList<Distribuidor> listarDistribuidores() {

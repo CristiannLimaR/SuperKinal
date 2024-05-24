@@ -132,6 +132,7 @@ public class MenuProductosController implements Initializable {
         colPrecioC.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioCompra"));
         colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("Distribuidor"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("Categoria"));
+        tblProductos.getSortOrder().add(colId);
     }
 
     public ObservableList<Producto> listarProductos() {

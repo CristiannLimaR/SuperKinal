@@ -131,6 +131,7 @@ public class MenuPromocionesController implements Initializable {
         colInicio.setCellValueFactory(new PropertyValueFactory<Promocion, Date>("fechaInicio"));
         colFinal.setCellValueFactory(new PropertyValueFactory<Promocion, Date>("fechaFinalizacion"));
         colProducto.setCellValueFactory(new PropertyValueFactory<Promocion, String>("Producto"));
+        tblPromociones.getSortOrder().add(colId);
     }
 
     public void cargarDatosEditar() {

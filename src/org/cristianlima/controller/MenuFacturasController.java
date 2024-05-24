@@ -7,9 +7,9 @@ package org.cristianlima.controller;
 
 import java.net.URL;
 import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.cristianlima.dao.Conexion;
+import org.cristianlima.dto.FacturaDTO;
 import org.cristianlima.model.Cliente;
 import org.cristianlima.model.Compra;
 import org.cristianlima.model.DetalleCompra;
@@ -46,9 +47,10 @@ public class MenuFacturasController implements Initializable {
 
     private Main stage;
     private static Connection conexion = null;
-    private static PreparedStatement statement = null;
+    private static CallableStatement statement = null;
     private static ResultSet resultSet = null;
-
+    
+    private int nuevaFactura;
     @FXML
     TableView tblFacturas;
 
@@ -56,7 +58,7 @@ public class MenuFacturasController implements Initializable {
     TableColumn colId, colFecha, colHora, colProducto, colPrecios, colCliente, colEmpleado, colTotal;
 
     @FXML
-    Button btnGuardar, btnListar, btnBuscar, btnVaciar, btnEditar, btnRegresar;
+    Button btnGuardar, btnListar, btnNueva, btnFacturas, btnRegresar;
 
     @FXML
     TextField tfId, tfTotal, tfBuscar, tfHora;
@@ -69,47 +71,41 @@ public class MenuFacturasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (FacturaDTO.getFacturaDTO().getFactura() != null) {
+            nuevaFactura = FacturaDTO.getFacturaDTO().getFactura().getFacturaId();
+            cargarLista();
+            cargarDatosAntiguos();
+            
+        }
         cargarCmbs();
-        cargarLista();
     }
 
     @FXML
     public void handleButtonAction(ActionEvent event) throws Exception {
         if (event.getSource() == btnRegresar) {
+            FacturaDTO.getFacturaDTO().setFactura(null);
             stage.menuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
             if (!cmbCliente.getSelectionModel().isEmpty() && !cmbEmpleado.getSelectionModel().isEmpty() && !cmbProducto.getSelectionModel().isEmpty()) {
                 if (tfId.getText().isEmpty()) {
                     agregarFactura();
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarLista();
+                    cargarDatos();
                 } else {
                     agregarDetalle();
                     SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarLista();
+                    cargarDatos();
                 }
             }else{
                 SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
             }
-
-            cargarLista();
-        } else if (event.getSource() == btnBuscar) {
-            tblFacturas.getItems().clear();
-            if (tfBuscar.getText().isEmpty()) {
-                cargarLista();
-            } else {
-                tblFacturas.setItems(buscarFactura());
-                colId.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Integer>("facturaId"));
-                colFecha.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Date>("fecha"));
-                colHora.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Time>("hora"));
-                colProducto.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Producto"));
-                colPrecios.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Precios"));
-                colEmpleado.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Empleado"));
-                colCliente.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Cliente"));
-                colTotal.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Integer>("total"));
-            }
-        } else if (event.getSource() == btnVaciar) {
+        } else if (event.getSource() == btnNueva) {
             vaciarCampos();
-        } else if (event.getSource() == btnListar) {
-            cargarLista();
+            tblFacturas.getItems().clear();
+        } else if (event.getSource() == btnFacturas) {
+            stage.facturasView();
         }
     }
 
@@ -121,7 +117,7 @@ public class MenuFacturasController implements Initializable {
     }
 
     public void cargarLista() {
-        tblFacturas.setItems(listarFacturas());
+        tblFacturas.setItems(listarFacturas(nuevaFactura));
         colId.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Integer>("facturaId"));
         colFecha.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Date>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Time>("hora"));
@@ -130,6 +126,7 @@ public class MenuFacturasController implements Initializable {
         colEmpleado.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Empleado"));
         colCliente.setCellValueFactory(new PropertyValueFactory<DetalleFactura, String>("Cliente"));
         colTotal.setCellValueFactory(new PropertyValueFactory<DetalleFactura, Integer>("total"));
+        tblFacturas.getSortOrder().add(colId);
     }
 
     public void vaciarCampos() {
@@ -142,69 +139,36 @@ public class MenuFacturasController implements Initializable {
         cmbEmpleado.getSelectionModel().clearSelection();
     }
 
-    public void cargarDatosEditar() {
-        DetalleFactura factura = (DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem();
+    public void cargarDatos() {
+        DetalleFactura factura = (DetalleFactura) tblFacturas.getItems().get(0);
         if (factura != null) {
             tfId.setText(Integer.toString(factura.getFacturaId()));
             tfTotal.setText(Double.toString(factura.getTotal()));
             dpFecha.setValue(factura.getFecha().toLocalDate());
             tfHora.setText(factura.getHora().toString());
-            cmbProducto.getSelectionModel().select(obtenerIndexProducto());
-            cmbCliente.getSelectionModel().select(obtenerIndexCliente());
-            cmbEmpleado.getSelectionModel().select(obtenerIndexEmpleado());
 
         }
     }
-
-    public int obtenerIndexProducto() {
-        int index = 0;
-        for (int i = 0; i < cmbProducto.getItems().size(); i++) {
-            String productoCmb = cmbProducto.getItems().get(i).toString();
-            String productoTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getProducto();
-            if (productoCmb.equals(productoTbl)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+    
+    public void cargarDatosAntiguos(){
+        tfId.setText(Integer.toString(FacturaDTO.getFacturaDTO().getFactura().getFacturaId()));
+        tfTotal.setText(Double.toString(FacturaDTO.getFacturaDTO().getFactura().getTotal()));
+        dpFecha.setValue(FacturaDTO.getFacturaDTO().getFactura().getFecha().toLocalDate());
+        tfHora.setText(FacturaDTO.getFacturaDTO().getFactura().getHora().toString());
     }
 
-    public int obtenerIndexCliente() {
-        int index = 0;
-        for (int i = 0; i < cmbCliente.getItems().size(); i++) {
-            String clienteCmb = cmbCliente.getItems().get(i).toString();
-            String clienteTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getCliente();
-            if (clienteCmb.equals(clienteTbl)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
 
-    public int obtenerIndexEmpleado() {
-        int index = 0;
-        for (int i = 0; i < cmbEmpleado.getItems().size(); i++) {
-            String empleadoCmb = cmbEmpleado.getItems().get(i).toString();
-            String empleadoTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getEmpleado();
-            if (empleadoCmb.equals(empleadoTbl)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
-    public ObservableList<DetalleFactura> listarFacturas() {
+    public ObservableList<DetalleFactura> listarFacturas(int facturaId) {
         ArrayList<DetalleFactura> facturas = new ArrayList<>();
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarDetalleFacturas()";
-            statement = conexion.prepareStatement(sql);
+            String sql = "call sp_listarDetalleFacturas(?)";
+            statement = conexion.prepareCall(sql);
+            statement.setInt(1, facturaId);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int facturaId = resultSet.getInt("facturaId");
+                int Id = resultSet.getInt("facturaId");
                 Date fecha = resultSet.getDate("fecha");
                 Time hora = resultSet.getTime("hora");
                 String producto = resultSet.getString("Producto");
@@ -212,7 +176,7 @@ public class MenuFacturasController implements Initializable {
                 String empleado = resultSet.getString("Empleado");
                 String cliente = resultSet.getString("Cliente");
                 double total = resultSet.getDouble("total");
-                facturas.add(new DetalleFactura(facturaId, fecha, hora, producto, precios, empleado, cliente, total));
+                facturas.add(new DetalleFactura(Id, fecha, hora, producto, precios, empleado, cliente, total));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -238,7 +202,7 @@ public class MenuFacturasController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_agregarDetalleFactura(?,?)";
-            statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareCall(sql);
             statement.setInt(1, Integer.parseInt(tfId.getText()));
             statement.setInt(2, ((Producto) cmbProducto.getSelectionModel().getSelectedItem()).getProductoId());
             statement.execute();
@@ -262,12 +226,15 @@ public class MenuFacturasController implements Initializable {
     public void agregarFactura() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarFactura(?,?,?)";
-            statement = conexion.prepareStatement(sql);
+            String sql = "call sp_agregarFactura(?,?,?,?)";
+            statement = conexion.prepareCall(sql);
             statement.setInt(1, ((Cliente) cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(2, ((Empleado) cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
             statement.setInt(3, ((Producto) cmbProducto.getSelectionModel().getSelectedItem()).getProductoId());
+            statement.registerOutParameter(4, java.sql.Types.INTEGER);
             statement.execute();
+            
+            nuevaFactura = statement.getInt(4);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,7 +257,7 @@ public class MenuFacturasController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_buscarDetalleFactura(?)";
-            statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareCall(sql);
             statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
             resultSet = statement.executeQuery();
 
@@ -330,7 +297,7 @@ public class MenuFacturasController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarClientes()";
-            statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareCall(sql);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -367,7 +334,7 @@ public class MenuFacturasController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarEmpleados()";
-            statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareCall(sql);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -408,7 +375,7 @@ public class MenuFacturasController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarProductos()";
-            statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareCall(sql);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

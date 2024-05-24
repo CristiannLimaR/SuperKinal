@@ -92,6 +92,7 @@ public class MenuCategoriaProductosController implements Initializable {
         colCategoriaId.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, Integer>("categoriaProductosId"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, String>("nombreCategoria"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<CategoriaProducto, String>("descripcionCategoria"));
+        tblCategorias.getSortOrder().add(colCategoriaId);
 
     }
 

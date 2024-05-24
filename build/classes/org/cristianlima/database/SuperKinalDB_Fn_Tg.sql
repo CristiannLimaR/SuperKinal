@@ -6,6 +6,7 @@ begin
 
 	declare total decimal(10,2) default 0.0;
     declare precio decimal(10,2);
+    declare cantidad int;
     declare i int default 1;
     declare curFacturaId, curProductoId int;
     declare curPromPrecio decimal(10,2);
@@ -20,17 +21,23 @@ begin
 
     fetch cursorDetalleFactura into curFacturaId, curProductoId;
     
+    select COUNT(*) into cantidad from DetalleFactura DF
+    where DF.facturaId = factId and DF.productoId = curproductoId;
+    
+    
     select PR.precioPromocion into curPromPrecio
         from Promociones PR
         where PR.productoId = curProductoId
         and NOW() between PR.fechaInicio and PR.fechaFinalizacion
         order by PR.fechaInicio desc
         Limit 1;
-
+	
 	if factId = curFacturaId then
 			if curPromPrecio is not null then
 				set precio = curPromPrecio;
-            else 
+            elseif cantidad >= 3 then 
+				set precio = (select P.precioVentaMayor from Productos P where P.productoId = curProductoId);
+			else
 				set precio = (select P.precioVentaUnitario from Productos P where P.productoId = curProductoId);
 			end if;
         set total = total + precio;

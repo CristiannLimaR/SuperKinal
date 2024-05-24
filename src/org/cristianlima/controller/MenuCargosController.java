@@ -92,6 +92,7 @@ public class MenuCargosController implements Initializable {
         colCargoId.setCellValueFactory(new PropertyValueFactory<Cargo, Integer>("CargoId"));
         colCargo.setCellValueFactory(new PropertyValueFactory<Cargo, String>("nombreCargo"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<Cargo, String>("DescripcionCargo"));
+        tblCargos.getSortOrder().add(colCargoId);
     }
 
     public ObservableList<Cargo> listarCargos() {

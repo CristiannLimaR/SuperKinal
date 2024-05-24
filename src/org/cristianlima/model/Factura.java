@@ -20,7 +20,7 @@ public class Factura {
     private String cliente;
     private int empleadoId;
     private String empleado;
-    double total;
+    private double total;
     
     public Factura(){
         

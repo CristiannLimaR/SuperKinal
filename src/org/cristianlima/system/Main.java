@@ -14,6 +14,8 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import org.cristianlima.controller.ComprasAntiguasController;
+import org.cristianlima.controller.FacturasAntiguasController;
 import org.cristianlima.controller.MenuCargosController;
 import org.cristianlima.controller.MenuCategoriaProductosController;
 import org.cristianlima.controller.FormClientesController;
@@ -237,9 +239,26 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-    /**
-     * @param args the command line arguments
-     */
+    
+    public void comprasView(){
+        try{
+            ComprasAntiguasController comprasView = (ComprasAntiguasController) switchScene("ComprasAntiguasView.fxml",700,500);
+            comprasView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void facturasView(){
+        try{
+            FacturasAntiguasController facturasView = (FacturasAntiguasController) switchScene("FacturasAntiguasView.fxml",820,500);
+            facturasView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+   
     public static void main(String[] args) {
         launch(args);
     }

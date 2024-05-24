@@ -67,6 +67,7 @@ public class MenuClientesController implements Initializable {
         colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
         colNit.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nit"));
+        tblClientes.getSortOrder().add(colClienteId);
     }
 
     public ObservableList<Cliente> listarClientes() {

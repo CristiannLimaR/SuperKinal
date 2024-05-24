@@ -23,7 +23,7 @@
       </ImageView>
       <TextField fx:id="tfId" editable="false" layoutX="79.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" promptText="FacturaId" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbProducto" layoutX="67.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <TableView fx:id="tblFacturas" layoutX="50.0" layoutY="375.0" onMouseClicked="#cargarDatosEditar" prefHeight="347.0" prefWidth="1090.0">
+      <TableView fx:id="tblFacturas" layoutX="50.0" layoutY="375.0" prefHeight="347.0" prefWidth="1090.0">
          <columns>
             <TableColumn fx:id="colId" text="FacturaId" />
             <TableColumn fx:id="colFecha" prefWidth="120.0" text="Fecha" />
@@ -67,28 +67,18 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnEditar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Editar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="btnFacturas" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Facturas Antiguas" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnVaciar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Vaciar" textFill="WHITE" GridPane.halignment="CENTER">
+            <Button fx:id="btnNueva" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Nueva" textFill="WHITE" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </children>
       </GridPane>
-      <TextField fx:id="tfBuscar" layoutX="888.0" layoutY="334.0" prefHeight="26.0" prefWidth="199.0" promptText="Ingrese el Id del Producto a Buscar" />
-      <Button fx:id="btnBuscar" layoutX="1104.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="30.0">
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/buscarIcon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <TextField fx:id="tfHora" editable="false" layoutX="847.0" layoutY="163.0" prefHeight="40.0" prefWidth="173.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbCliente" layoutX="340.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <ComboBox fx:id="cmbEmpleado" layoutX="603.0" layoutY="307.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
