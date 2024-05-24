@@ -107,7 +107,9 @@ public class MenuComprasController implements Initializable {
         } else if (event.getSource() == btnCompras) {
             stage.comprasView();
 
-        }
+        }else if (event.getSource() == btnListar) {
+            cargarLista();
+        } 
     }
 
     public void cargarLista() {

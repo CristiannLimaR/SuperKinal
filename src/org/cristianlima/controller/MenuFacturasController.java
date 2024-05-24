@@ -60,6 +60,7 @@ public class MenuFacturasController implements Initializable {
     @FXML
     Button btnGuardar, btnListar, btnNueva, btnFacturas, btnRegresar;
 
+
     @FXML
     TextField tfId, tfTotal, tfBuscar, tfHora;
 
@@ -252,45 +253,6 @@ public class MenuFacturasController implements Initializable {
         }
     }
 
-    public ObservableList<DetalleFactura> buscarFactura() {
-        ArrayList<DetalleFactura> facturas = new ArrayList<>();
-        try {
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_buscarDetalleFactura(?)";
-            statement = conexion.prepareCall(sql);
-            statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                int facturaId = resultSet.getInt("facturaId");
-                Date fecha = resultSet.getDate("fecha");
-                Time hora = resultSet.getTime("hora");
-                String producto = resultSet.getString("Producto");
-                String precios = resultSet.getString("Precios");
-                String empleado = resultSet.getString("Empleado");
-                String cliente = resultSet.getString("Cliente");
-                double total = resultSet.getDouble("total");
-                facturas.add(new DetalleFactura(facturaId, fecha, hora, producto, precios, empleado, cliente, total));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return FXCollections.observableList(facturas);
-    }
 
     public ObservableList<Cliente> listarClientes() {
         ArrayList<Cliente> clientes = new ArrayList<>();
