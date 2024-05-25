@@ -169,9 +169,8 @@ create table Usuarios(
 		references Empleados(empleadoId)
 );
 
-
-
-
+insert into NivelesAcceso(nivelAcceso) values
+('Admin'), ('Usuario');
 
 
 

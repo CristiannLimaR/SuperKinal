@@ -34,6 +34,7 @@ import org.cristianlima.controller.MenuEmpleadosController;
 import org.cristianlima.controller.MenuFacturasController;
 import org.cristianlima.controller.MenuProductosController;
 import org.cristianlima.controller.MenuPromocionesController;
+import org.cristianlima.controller.ProductosMasVendidosController;
 
 /**
  *
@@ -49,7 +50,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         stage.setTitle("SuperKinal");
-        formUserView();
+        loginView();
         stage.show();
 
     }
@@ -258,6 +259,14 @@ public class Main extends Application {
         }
     }
     
+    public void graficaProductosView(){
+        try{
+            ProductosMasVendidosController graficaView = (ProductosMasVendidosController) switchScene("ProductosMasVendidos.fxml",700,500);
+            graficaView.setStage(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
    
     public static void main(String[] args) {
         launch(args);

@@ -634,6 +634,18 @@ create procedure sp_eliminarProducto(in proId int)
     end $$
 DELIMITER ;
 
+
+DELIMITER $$ 
+create procedure sp_calcularVentas()
+	begin
+		select P.nombreProducto as 'Producto', COUNT(*) as Cantidad from DetalleFactura DF
+		join Productos P on DF.productoId = P.productoId
+		group by P.nombreProducto
+		order by Cantidad desc;
+    end $$
+DELIMITER ;
+
+
 DELIMITER $$
 create procedure sp_restarStock(in proId int)
 	begin 
