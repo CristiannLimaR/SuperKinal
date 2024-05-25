@@ -79,4 +79,11 @@ public class SuperKinalAlert {
         
     return action;
     }
+    
+    public void alertaSaludo(String usuario){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Bienvendo");
+            alert.setHeaderText("Bienvenido " + usuario);
+            alert.showAndWait();
+    }
 }

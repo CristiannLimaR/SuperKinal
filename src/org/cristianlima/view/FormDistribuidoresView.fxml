@@ -15,12 +15,12 @@
             <Image url="@../image/FormDistribuidoresView.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfTelefono" layoutX="79.0" layoutY="482.0" prefHeight="48.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <TextField fx:id="tfNombre" layoutX="79.0" layoutY="174.0" prefHeight="46.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfNombre" layoutX="79.0" layoutY="174.0" prefHeight="46.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <TextField fx:id="tfDireccion" alignment="TOP_LEFT" layoutX="79.0" layoutY="257.0" prefHeight="100.0" prefWidth="343.0" style="-fx-background-radius: 20; -fx-background-color: #969696; -fx-border-radius: 20;">
          <font>
             <Font size="18.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfDireccion" alignment="TOP_LEFT" layoutX="79.0" layoutY="257.0" prefHeight="100.0" prefWidth="343.0" style="-fx-background-radius: 20; -fx-background-color: #969696; -fx-border-radius: 20;">
+      <TextField fx:id="tfTelefono" layoutX="79.0" layoutY="482.0" prefHeight="48.0" prefWidth="343.0" style="-fx-background-color: #969696; -fx-background-radius: 20; -fx-border-radius: 20;">
          <font>
             <Font size="18.0" />
          </font>

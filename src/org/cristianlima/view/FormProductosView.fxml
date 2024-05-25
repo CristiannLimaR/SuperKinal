@@ -22,13 +22,13 @@
             <Image url="@../image/Drag%20and%20drop.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfStock" layoutX="47.0" layoutY="373.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #969696;" />
       <TextField fx:id="tfProducto" layoutX="47.0" layoutY="170.0" prefHeight="26.0" prefWidth="247.0" style="-fx-background-color: #969696;" />
       <TextField fx:id="tfDescripcion" alignment="TOP_LEFT" layoutX="47.0" layoutY="237.0" prefHeight="103.0" prefWidth="498.0" style="-fx-background-color: #969696;" />
-      <TextField fx:id="tfId" editable="false" layoutX="47.0" layoutY="100.0" prefHeight="26.0" prefWidth="247.0" style="-fx-background-color: #969696;" />
+      <TextField fx:id="tfStock" layoutX="47.0" layoutY="373.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #969696;" />
       <TextField fx:id="tfPrecioU" layoutX="47.0" layoutY="435.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #969696;" />
       <TextField fx:id="tfPrecioM" layoutX="210.0" layoutY="435.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #969696;" />
       <TextField fx:id="tfPrecioC" layoutX="383.0" layoutY="435.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #969696;" />
+      <TextField fx:id="tfId" editable="false" layoutX="47.0" layoutY="100.0" prefHeight="26.0" prefWidth="247.0" style="-fx-background-color: #969696;" />
       <Button fx:id="btnGuardar" layoutX="114.0" layoutY="788.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="42.0" prefWidth="162.0" style="-fx-background-radius: 20; -fx-background-color: #56C9E4;" text="Guardar">
          <font>
             <Font size="20.0" />

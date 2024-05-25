@@ -54,6 +54,7 @@ public class LoginController implements Initializable {
             if (op == 0) {
                 if (user != null) {
                     if (PasswordUtils.getInstance().checkPassword(tfPassword.getText(), user.getContrasenia())) {
+                        SuperKinalAlert.getInstance().alertaSaludo(user.getUsuario());
                         if (user.getNivelAccesoId() == 1) {
                             btnRegistrar.setDisable(false);
                             btnIniciar.setText("Ir al menu");
