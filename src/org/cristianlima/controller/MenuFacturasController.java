@@ -35,6 +35,7 @@ import org.cristianlima.model.DetalleCompra;
 import org.cristianlima.model.DetalleFactura;
 import org.cristianlima.model.Empleado;
 import org.cristianlima.model.Producto;
+import org.cristianlima.report.GenerarReporte;
 import org.cristianlima.system.Main;
 import org.cristianlima.utils.SuperKinalAlert;
 
@@ -103,6 +104,7 @@ public class MenuFacturasController implements Initializable {
                 SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
             }
         } else if (event.getSource() == btnNueva) {
+            GenerarReporte.getInstance().generarFactura(Integer.parseInt(tfId.getText()));
             vaciarCampos();
             tblFacturas.getItems().clear();
         } else if (event.getSource() == btnFacturas) {

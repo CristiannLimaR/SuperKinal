@@ -746,6 +746,6 @@ create procedure sp_listarNivelAcceso()
 delimiter ;
 
 select * from empleados;
-
+select * from facturas;
 call sp_listarNivelAcceso();
 

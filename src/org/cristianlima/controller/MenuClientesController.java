@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.ClienteDTO;
 import org.cristianlima.model.Cliente;
+import org.cristianlima.report.GenerarReporte;
 import org.cristianlima.system.Main;
 import org.cristianlima.utils.SuperKinalAlert;
 
@@ -114,7 +115,7 @@ public class MenuClientesController implements Initializable {
         } else if (event.getSource() == btnAgregar) {
             stage.formClienteController(1);
         } else if (event.getSource() == btnListar){
-            cargarLista();
+            GenerarReporte.getInstance().generarClientes();
         }else if (event.getSource() == btnEditar) {
             ClienteDTO.getClienteDTO().setCliente((Cliente) tblClientes.getSelectionModel().getSelectedItem());
             stage.formClienteController(2);

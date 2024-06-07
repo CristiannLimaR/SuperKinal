@@ -38,11 +38,11 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="tfEntrada" layoutX="77.0" layoutY="568.0" promptText="HH:MM" />
-      <TextField fx:id="tfSalida" layoutX="277.0" layoutY="568.0" promptText="HH:MM" />
       <TextField fx:id="tfNombre" layoutX="62.0" layoutY="294.0" prefHeight="40.0" prefWidth="253.0" promptText="Nombre" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <TextField fx:id="tfApellido" layoutX="62.0" layoutY="383.0" prefHeight="40.0" prefWidth="253.0" promptText="Apellido" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
       <TextField fx:id="tfSueldo" layoutX="62.0" layoutY="466.0" prefHeight="40.0" prefWidth="253.0" promptText="Sueldo" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+      <TextField fx:id="tfEntrada" layoutX="77.0" layoutY="568.0" promptText="HH:MM" />
+      <TextField fx:id="tfSalida" layoutX="291.0" layoutY="568.0" promptText="HH:MM" />
       <Button fx:id="btnGuardar" alignment="CENTER" layoutX="39.0" layoutY="648.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="120.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Guardar" textFill="WHITE">
          <font>
             <Font size="15.0" />

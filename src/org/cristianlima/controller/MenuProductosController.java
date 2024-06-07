@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.ProductoDTO;
 import org.cristianlima.model.Producto;
+import org.cristianlima.report.GenerarReporte;
 import org.cristianlima.system.Main;
 import org.cristianlima.utils.SuperKinalAlert;
 
@@ -73,7 +74,7 @@ public class MenuProductosController implements Initializable {
                 stage.formProductosControllerView(1);
                 cargarLista();
             } else if (event.getSource() == btnListar) {
-                cargarLista();
+                GenerarReporte.getInstance().generarProductos();
             } else if (event.getSource() == btnEditar) {
                 ProductoDTO.getProductoDTO().setProducto((Producto) tblProductos.getSelectionModel().getSelectedItem());
                 stage.formProductosControllerView(2);

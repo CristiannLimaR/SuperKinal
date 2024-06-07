@@ -51,7 +51,7 @@ public class CargarImagenController implements Initializable {
         Image imagen = null;
         try {
             InputStream file = blob.getBinaryStream();
-            imagen = new Image(file);
+            imagen = new Image(file); 
 
         } catch (Exception e) {
             e.printStackTrace();
