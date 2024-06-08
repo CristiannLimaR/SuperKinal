@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SuperKinal.jar" size="3547019" download="eager" />
+    <jar href="SuperKinal.jar" size="3547017" download="eager" />
     <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />
     <jar href="lib\commons-digester-2.1.jar" size="196768" download="eager" />
     <jar href="lib\commons-logging-1.3.2.jar" size="71613" download="eager" />
