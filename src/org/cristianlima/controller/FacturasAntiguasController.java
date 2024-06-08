@@ -28,6 +28,7 @@ import org.cristianlima.dao.Conexion;
 import org.cristianlima.dto.FacturaDTO;
 import org.cristianlima.model.Compra;
 import org.cristianlima.model.Factura;
+import org.cristianlima.report.GenerarReporte;
 import org.cristianlima.system.Main;
 
 /**
@@ -63,8 +64,7 @@ public class FacturasAntiguasController implements Initializable {
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnSeleccionar) {
-            FacturaDTO.getFacturaDTO().setFactura((Factura) tblFacturas.getSelectionModel().getSelectedItem());
-            stage.menuFacturasView();
+            GenerarReporte.getInstance().generarFactura(((Factura) tblFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
         } else if (event.getSource() == btnSalir) {
             stage.menuFacturasView();
         } else if (event.getSource() == btnBuscar) {

@@ -36,7 +36,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnListar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Listar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button fx:id="btnListar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Reportes" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -47,11 +47,6 @@
                </font>
             </Button>
             <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Eliminar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnReportes" alignment="CENTER" layoutX="56.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: Linear-gradient(to right,#2046A4,#1272A1,#06979E);" text="Reportes" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font size="15.0" />
                </font>

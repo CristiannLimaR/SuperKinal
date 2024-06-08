@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Facturas" pageWidth="400" pageHeight="792" columnWidth="360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="36c7d921-5ea6-43d4-9e4b-3fb05937f02a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SuperKinal"/>
@@ -107,7 +107,7 @@ where F.facturaId = $P{factId}]]>
 		<band height="220" splitType="Stretch">
 			<image>
 				<reportElement x="-20" y="-20" width="215" height="240" uuid="a7d9c3c5-9015-414e-b16d-7e44358972f9"/>
-				<imageExpression><![CDATA["C:/Users/Informatica/Downloads/Diseño sin título (1).png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/Users/crist/Desktop/Repositorios/SuperKinal/src/org/cristianlima/image/Logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="80" y="60" width="330" height="120" uuid="34274a0a-be6a-47f2-af1b-a54bb8dce6d1"/>
@@ -206,26 +206,44 @@ where F.facturaId = $P{factId}]]>
 		<band height="131" splitType="Stretch">
 			<textField>
 				<reportElement x="280" y="20" width="100" height="30" uuid="08d13d58-5f92-4c0d-ab7c-7f7cd43b6853"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalSinIva}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="50" width="100" height="30" uuid="fd21e76d-7d06-4391-8020-f7f6b2a95d8e"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalSinIva}*0.12]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="180" y="20" width="100" height="30" uuid="01d27fab-2ce2-4225-a675-6832d04d8e55"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Precio sin IVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="50" width="100" height="30" uuid="e0f53b8f-03a3-4010-aea1-d49ea1214619"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[IVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="80" width="100" height="30" uuid="c35c8b21-c76e-4f9a-9238-e9c76b540a2b"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="280" y="80" width="100" height="30" uuid="259665e1-b07d-471e-81a5-e4ab31cde9c3"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -233,7 +251,10 @@ where F.facturaId = $P{factId}]]>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="92" y="12" width="188" height="30" uuid="bb49c368-a31f-49d3-b48e-8104d32052f6"/>
+				<reportElement x="5" y="10" width="351" height="44" uuid="bb49c368-a31f-49d3-b48e-8104d32052f6"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Completa la encuesta y te llevas un helado gratis.]]></text>
 			</staticText>
 		</band>
