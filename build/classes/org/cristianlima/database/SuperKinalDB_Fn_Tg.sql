@@ -35,6 +35,8 @@ begin
 	if factId = curFacturaId then
 			if curPromPrecio is not null then
 				set precio = curPromPrecio;
+            elseif cantidad >= 3 then 
+				set precio = (select P.precioVentaMayor from Productos P where P.productoId = curProductoId);
 			else
 				set precio = (select P.precioVentaUnitario from Productos P where P.productoId = curProductoId);
 			end if;

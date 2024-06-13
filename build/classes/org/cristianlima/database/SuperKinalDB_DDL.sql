@@ -171,6 +171,3 @@ create table Usuarios(
 
 insert into NivelesAcceso(nivelAcceso) values
 ('Admin'), ('Usuario');
-
-
-

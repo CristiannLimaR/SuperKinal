@@ -221,7 +221,7 @@ join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId]]>
 				<imageExpression><![CDATA[$F{imagenProducto}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement style="Detail" x="460" y="-1" width="55" height="15" uuid="dc4f4088-a637-46dc-9115-b77959af78ef">
+				<reportElement style="Detail" x="460" y="30" width="55" height="15" uuid="dc4f4088-a637-46dc-9115-b77959af78ef">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87f31199-4d4e-4dbe-ad17-55f4ac6c2ce4"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{precioCompra}]]></textFieldExpression>
