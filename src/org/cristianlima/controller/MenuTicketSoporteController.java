@@ -322,27 +322,30 @@ public class MenuTicketSoporteController implements Initializable {
                 int facturaId = resultSet.getInt("facturaId");
                 Date fecha = resultSet.getDate("fecha");
                 Time hora = resultSet.getTime("hora");
-                int empleado = resultSet.getInt("empleadoId");
-                int cliente = resultSet.getInt("clienteId");
-                double total = resultSet.getDouble("total");
+                String empleado = resultSet.getString("Empleado");
+                String cliente = resultSet.getString("Cliente");
+                Double total = resultSet.getDouble("total");
                 facturas.add(new Factura(facturaId, fecha, hora, empleado, cliente, total));
+
             }
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (resultSet != null) {
-                    resultSet.close();
+                if (conexion != null) {
+                    conexion.close();
                 }
                 if (statement != null) {
                     statement.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
+                if (resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
+
         }
         return FXCollections.observableList(facturas);
     }

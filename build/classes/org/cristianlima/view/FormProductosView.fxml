@@ -39,6 +39,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fx:id="imgCargar" fitHeight="151.0" fitWidth="294.0" layoutX="213.0" layoutY="611.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgCargar" fitHeight="151.0" fitWidth="294.0" layoutX="213.0" layoutY="610.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

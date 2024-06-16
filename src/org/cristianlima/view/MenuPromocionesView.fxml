@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="750.0" fitWidth="1300.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/MenuPromociones.png" />
+            <Image url="@../image/Menu%20Tickets.png" />
          </image>
       </ImageView>
       <TextField fx:id="tfId" editable="false" layoutX="74.0" layoutY="159.0" prefHeight="40.0" prefWidth="173.0" promptText="Promocion Id" style="-fx-background-radius: 20; -fx-border-radius: 20;" />

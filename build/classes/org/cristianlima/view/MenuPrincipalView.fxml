@@ -40,11 +40,6 @@
               <MenuItem mnemonicParsing="false" text="Acerca de " />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Graficas">
-              <items>
-                <MenuItem fx:id="btnGrafica1" mnemonicParsing="false" onAction="#handleButtonAction" text="GraficaProductos" />
-              </items>
-            </Menu>
         </menus>
       </MenuBar>
    </children>

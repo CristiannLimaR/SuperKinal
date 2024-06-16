@@ -186,6 +186,8 @@ begin
 end $$
 DELIMITER ;
 
+call sp_agregarDetalleFactura(1,1);
+
  
 DELIMITER $$
 create procedure sp_ListarDetalleFacturas(in facId int)
@@ -744,6 +746,9 @@ create procedure sp_listarNivelAcceso()
     select * from NivelesAcceso;
     end $$
 delimiter ;
+
+
+
 
 select * from empleados;
 select * from facturas;

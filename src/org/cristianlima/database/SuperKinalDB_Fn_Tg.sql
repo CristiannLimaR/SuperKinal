@@ -9,7 +9,6 @@ begin
     declare cantidad int;
     declare i int default 1;
     declare curFacturaId, curProductoId int;
-    declare curPromPrecio decimal(10,2);
     
     
     declare cursorDetalleFactura cursor for 
@@ -18,30 +17,22 @@ begin
     open cursorDetalleFactura;
     
     totalLoop :loop
-
     fetch cursorDetalleFactura into curFacturaId, curProductoId;
     
     select COUNT(*) into cantidad from DetalleFactura DF
     where DF.facturaId = factId and DF.productoId = curproductoId;
     
     
-    select PR.precioPromocion into curPromPrecio
-        from Promociones PR
-        where PR.productoId = curProductoId
-        and NOW() between PR.fechaInicio and PR.fechaFinalizacion
-        order by PR.fechaInicio desc
-        Limit 1;
 	
 	if factId = curFacturaId then
-			if curPromPrecio is not null then
-				set precio = curPromPrecio;
-            elseif cantidad >= 3 then 
+            if cantidad >= 3 then 
 				set precio = (select P.precioVentaMayor from Productos P where P.productoId = curProductoId);
 			else
 				set precio = (select P.precioVentaUnitario from Productos P where P.productoId = curProductoId);
 			end if;
         set total = total + precio;
     end if;
+    
 
     if i = (select count(*) from detalleFactura) then
 		leave totalLoop;
@@ -56,6 +47,10 @@ begin
 end $$
 delimiter ;
 
+
+
+select * from facturas;
+call sp_agregarDetalleFactura(1,2);
 delimiter $$
 create function fn_calcularTotalCompra (comId int) returns decimal(10,2) deterministic
 begin
@@ -133,3 +128,53 @@ begin
 	call sp_agregarStock(New.productoId,new.cantidadCompra);
 end$$
 delimiter ;
+
+DELIMITER $$
+
+CREATE TRIGGER trg_actualizar_precio_unitario
+AFTER INSERT ON Promociones
+FOR EACH ROW
+BEGIN
+    DECLARE old_precio DECIMAL(10,2);
+    
+    SELECT precioVentaUnitario INTO old_precio
+    FROM Productos
+    WHERE productoId = NEW.productoId;
+    
+    UPDATE Productos
+    SET precioVentaUnitario = NEW.precioPromocion
+    WHERE productoId = NEW.productoId;
+ 
+    INSERT INTO HistorialPrecios (productoId, precioAnterior)
+    VALUES (NEW.productoId, old_precio);
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE TRIGGER trg_restaurar_precio_unitario
+BEFORE DELETE ON Promociones
+FOR EACH ROW
+BEGIN
+    DECLARE old_precio DECIMAL(10,2);
+    
+  
+    SELECT precioAnterior INTO old_precio
+    FROM HistorialPrecios
+    WHERE productoId = OLD.productoId
+    ORDER BY fechaCambio DESC
+    LIMIT 1;
+    
+    
+    UPDATE Productos
+    SET precioVentaUnitario = old_precio
+    WHERE productoId = OLD.productoId;
+    
+END$$
+
+DELIMITER ;
+
+
+
